@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.mcljp.com/avatar.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.mcljp.com/avatar.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.mcljp.com/avatar.jpg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="https://www.mcljp.com/avatar.jpg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JS,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="想必大家很厌烦笔试，因为脑海中都是一些分散的知识点，无法关联成网，一直处于时曾相识的状态。不知道多少人和我一样，至今每次写阻止冒泡都需要百度一番如何拼写。  CSS1.盒模型页面渲染时，dom 元素所采用的布局模型。可通过 box-sizing 进行设置。根据计算宽高的区域可分为：  content-box (W3C 标准盒模型,在宽度和高度之外绘制元素的内边距和边框) border-box (">
+<meta name="keywords" content="JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题收集">
+<meta property="og:url" content="http://mcljp.com/2019/02/20/Interview/index.html">
+<meta property="og:site_name" content="李小朋的博客">
+<meta property="og:description" content="想必大家很厌烦笔试，因为脑海中都是一些分散的知识点，无法关联成网，一直处于时曾相识的状态。不知道多少人和我一样，至今每次写阻止冒泡都需要百度一番如何拼写。  CSS1.盒模型页面渲染时，dom 元素所采用的布局模型。可通过 box-sizing 进行设置。根据计算宽高的区域可分为：  content-box (W3C 标准盒模型,在宽度和高度之外绘制元素的内边距和边框) border-box (">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://mcljp.com/2019/02/20/Interview/z.png">
+<meta property="og:updated_time" content="2020-06-26T03:18:29.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试题收集">
+<meta name="twitter:description" content="想必大家很厌烦笔试，因为脑海中都是一些分散的知识点，无法关联成网，一直处于时曾相识的状态。不知道多少人和我一样，至今每次写阻止冒泡都需要百度一番如何拼写。  CSS1.盒模型页面渲染时，dom 元素所采用的布局模型。可通过 box-sizing 进行设置。根据计算宽高的区域可分为：  content-box (W3C 标准盒模型,在宽度和高度之外绘制元素的内边距和边框) border-box (">
+<meta name="twitter:image" content="http://mcljp.com/2019/02/20/Interview/z.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mcljp.com/2019/02/20/Interview/">
+
+
+
+
+
+  <title>面试题收集 | 李小朋的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">李小朋的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            关于李小朋
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mcljp.com/2019/02/20/Interview/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李小朋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://www.mcljp.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李小朋的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试题收集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T09:03:20+08:00">
+                2019-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>想必大家很厌烦笔试，因为脑海中都是一些分散的知识点，无法关联成网，一直处于时曾相识的状态。不知道多少人和我一样，至今每次写阻止冒泡都需要百度一番如何拼写。</p>
+</blockquote>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><h4 id="1-盒模型"><a href="#1-盒模型" class="headerlink" title="1.盒模型"></a>1.盒模型</h4><p>页面渲染时，dom 元素所采用的布局模型。可通过 box-sizing 进行设置。根据计算宽高的区域可分为：</p>
+<ul>
+<li>content-box (W3C 标准盒模型,在宽度和高度之外绘制元素的内边距和边框)</li>
+<li>border-box (为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制)</li>
+<li>inherit (从父元素继承 box-sizing 属性的值)</li>
+</ul>
+<h4 id="2-层叠上下文"><a href="#2-层叠上下文" class="headerlink" title="2.层叠上下文"></a>2.层叠上下文</h4><ul>
+<li>z-index 属性值并不是在任何元素上都有效果。它仅在定位元素（定义了 position 属性，且属性值为非 static 值的元素）上有效果</li>
+<li>判断元素在 Z 轴上的堆叠顺序，不仅仅是直接比较两个元素的 z-index 值的大小，这个堆叠顺序实际由元素的层叠上下文、层叠等级共同决定。<br><img src="/2019/02/20/Interview/z.png" alt="z"><br>层叠上下文通俗的讲就是，两个父元素各自有一个子元素，子元素全部设置有 position 和 z-index，那么这时候因为父元素没有设置 z-index，所以没有产生上下文，此时 z-index 谁大谁就在上面,如果两个父元素同时设置了 z-index,就算你其中子元素的 z-index 设置了 99999 也没用，因为你的父元素所产生的层叠上下文比别人的小，也就是 z-index。</li>
+</ul>
+<h4 id="3-居中布局"><a href="#3-居中布局" class="headerlink" title="3.居中布局"></a>3.居中布局</h4><p>水平居中</p>
+<ul>
+<li>行内元素: text-align:center</li>
+<li>块级元素: margin:0 auto</li>
+<li>absolute+transform（position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);）</li>
+<li>flex+justify-content:center</li>
+</ul>
+<p>垂直居中</p>
+<ul>
+<li>line-height:height</li>
+<li>absolute+transform</li>
+<li>flex+align-items:center</li>
+<li>display: table-cell</li>
+</ul>
+<p>水平垂直居中</p>
+<ul>
+<li>absolute+transform</li>
+<li>flex+justify-content+align-items</li>
+</ul>
+<h4 id="4-选择器优先级"><a href="#4-选择器优先级" class="headerlink" title="4.选择器优先级"></a>4.选择器优先级</h4><ul>
+<li>!important &gt; 行内样式 &gt; #id &gt; .class &gt; tag &gt; * &gt; 继承 &gt; 默认</li>
+<li>选择器从右往左解析</li>
+</ul>
+<h4 id="5-去除浮动影响，防止父级高度塌陷"><a href="#5-去除浮动影响，防止父级高度塌陷" class="headerlink" title="5.去除浮动影响，防止父级高度塌陷"></a>5.去除浮动影响，防止父级高度塌陷</h4><ul>
+<li>通过增加尾元素清除浮动(::after{content:’’;clear:both;display:block;})</li>
+<li>父级设置高度</li>
+<li>父元素设置 overflow:hidden;</li>
+</ul>
+<h3 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h3><h4 id="1-原型-构造函数-实例"><a href="#1-原型-构造函数-实例" class="headerlink" title="1.原型 / 构造函数 / 实例"></a>1.原型 / 构造函数 / 实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">原型(prototype):一个简单的对象，用于实现对象的属性继承。可以简单的理解成对象的爹。在Firefox和Chrome中，</span><br><span class="line">每个JavaScript对象中都包含一个 __proto__(非标准)的属性指向它爹(该对象的原型)，可obj.__proto__进行访问。</span><br><span class="line">构造函数:可以通过new来新建一个对象的函数。</span><br><span class="line">实例: 通过构造函数和new创建出来的对象，便是实例,实例通过 __proto__指向原型，通过constructor指向构造函数。</span><br><span class="line">实例.__proto__ === 原型</span><br><span class="line">原型.constructor === 构造函数</span><br><span class="line">构造函数.prototype === 原型</span><br><span class="line">原型.constructorr === 构造函数</span><br></pre></td></tr></table></figure>
+<h4 id="2-原型链"><a href="#2-原型链" class="headerlink" title="2.原型链"></a>2.原型链</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原型链是由原型对象组成，每个对象都有__proto__属性，指向了创建该对象的构造函数的原型，</span><br><span class="line">__proto__将对象连接起来组成了原型链。是一个用来实现继承和共享属性的有限的对象链。</span><br><span class="line">具体还是去这个网站吧https://www.jianshu.com/p/dee9f8b14771</span><br></pre></td></tr></table></figure>
+<h4 id="3-作用域"><a href="#3-作用域" class="headerlink" title="3.作用域"></a>3.作用域</h4><p>作用域其实可理解为该上下文中声明的变量和声明的作用范围。可分为块级作用域和函数作用域</p>
+<ul>
+<li>声明提前: 一个声明在函数体内都是可见的, 函数优先于变量</li>
+<li>非匿名自执行函数，函数变量为只读状态，无法修改</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const foo = 1</span><br><span class="line">(function foo() &#123;</span><br><span class="line">    foo = 10 // 由于foo在函数中只为可读，因此赋值无效</span><br><span class="line">    console.log(foo)</span><br><span class="line">&#125;())</span><br><span class="line">// 结果打印：  ƒ foo() &#123; foo = 10 ; console.log(foo) &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-作用域链"><a href="#4-作用域链" class="headerlink" title="4.作用域链"></a>4.作用域链</h4><p>我们可以在执行上下文中访问到父级甚至全局的变量，这便是作用域链的功劳。作用域链可以理解为一组对象列表，包含父级和自身的变量对象，因此我们便能通过作用域链访问到父级里声明的变量或者函数。</p>
+<h4 id="5-闭包"><a href="#5-闭包" class="headerlink" title="5.闭包"></a>5.闭包</h4><p>闭包属于一种特殊的作用域，称为静态作用域。它的定义可以理解为: 父函数被销毁 的情况下，返回出的子函数仍然保留着父级的单变量对象和作用域链，因此可以继续访问到父级的变量对象，这样的函数称为闭包。<br>闭包也会产生一个问题：</p>
+<ul>
+<li>多个子函数都是同时指向父级，是完全共享的。因此当父级的变量对象被修改时，所有子函数都受到影响。<br>解决方法：</li>
+<li>变量可以通过函数参数的形式传入</li>
+<li>使用块级作用域，让变量成为自己上下文的属性，避免共享</li>
+</ul>
+<h4 id="6-对象的拷贝"><a href="#6-对象的拷贝" class="headerlink" title="6.对象的拷贝"></a>6.对象的拷贝</h4><p>浅拷贝: 以赋值的形式拷贝引用对象，仍指向同一个地址，修改时原对象也会受到影响</p>
+<ul>
+<li>Object.assign</li>
+<li>…扩展运算符<br>深拷贝: 完全拷贝一个新对象，修改时原对象不再受到任何影响</li>
+<li>当值为函数或 undefined 时，无法拷贝</li>
+<li>JSON.parse(JSON.stringify(obj)): 性能最快</li>
+<li>递归进行逐一赋值</li>
+</ul>
+<h4 id="7-new-运算符的执行过程"><a href="#7-new-运算符的执行过程" class="headerlink" title="7.new 运算符的执行过程"></a>7.new 运算符的执行过程</h4><ul>
+<li>新生成一个对象</li>
+<li>链接到原型 prototype</li>
+<li>绑定 this</li>
+<li>返回新对象</li>
+</ul>
+<h4 id="8-代码的复用"><a href="#8-代码的复用" class="headerlink" title="8.代码的复用"></a>8.代码的复用</h4><ul>
+<li>函数封装</li>
+<li>继承</li>
+<li>混入 mixin 模式（感觉和继承差不多鸭）</li>
+<li>借用 apply/call</li>
+</ul>
+<h4 id="9-继承"><a href="#9-继承" class="headerlink" title="9.继承"></a>9.继承</h4><p>在 JS 中，继承通常指的便是原型链继承，也就是通过指定原型，并可以通过原型链继承原型上的属性或者方法。</p>
+<ul>
+<li>使用 ES6 的语法糖 class/extends</li>
+</ul>
+<h4 id="10-类型转换"><a href="#10-类型转换" class="headerlink" title="10.类型转换"></a>10.类型转换</h4><p>在 JS 中在使用运算符号或者对比符时，会自带隐式转换，规则如下:</p>
+<ul>
+<li>-、*、/、% ：一律转换成数值后计算</li>
+<li>[1].toString()===’1’</li>
+<li>{}.toString()===’[object object]’ +：</li>
+<li>数字 + 字符串 = 字符串， 运算顺序是从左到右</li>
+<li>数字 + 对象， 优先调用对象的 valueOf -&gt; toString</li>
+<li>数字 + boolean/null = 数字</li>
+<li>数字 + undefined == NaN</li>
+</ul>
+<h4 id="11-类型判断"><a href="#11-类型判断" class="headerlink" title="11.类型判断"></a>11.类型判断</h4><p>判断类型，单单用 typeof 并无法完全满足，这其实并不是 bug，本质原因是 JS 的万物皆对象的理论。因此要真正完美判断时，我们需要区分对待</p>
+<ul>
+<li>基本类型(null): 使用 String(null)</li>
+<li>基本类型(string/number/boolean/undefined) + function: 直接使用 typeof 即可</li>
+<li>其余引用类型(Array/Date/RegExpError): 调用 toString 后根据 [objectXXX]进行判断</li>
+</ul>
+<h4 id="12-模块化"><a href="#12-模块化" class="headerlink" title="12.模块化"></a>12.模块化</h4><ul>
+<li>es6: import/exports</li>
+<li>commonjs: require/module.exports/exports</li>
+</ul>
+<p>require 与 import 的区别</p>
+<ul>
+<li>require 支持动态导入， import 不支持，正在提案 (babel 下可支持)</li>
+<li>require 是同步导入， import 属于异步导入</li>
+<li>require 是值拷贝，导出值变化不会影响导入值； import 指向内存地址，导入值会随导出值而变化</li>
+</ul>
+<h4 id="13-防抖与节流"><a href="#13-防抖与节流" class="headerlink" title="13.防抖与节流"></a>13.防抖与节流</h4><p>具体看前几篇的博客</p>
+<h4 id="14-this-指向"><a href="#14-this-指向" class="headerlink" title="14.this 指向"></a>14.this 指向</h4><p>要明白 this 指向，其实就是要搞清楚函数的运行环境，说人话就是，谁调用了函数。例如:</p>
+<ul>
+<li>obj.fn()，便是 obj 调用了函数，既函数中的 this===obj</li>
+<li>fn()，这里可以看成 window.fn()，因此 this===window</li>
+</ul>
+<p>但这种机制并不完全能满足我们的业务需求，因此提供了三种方式可以手动修改 this 的指向:</p>
+<ul>
+<li>call:fn.call(target,1,2)</li>
+<li>apply:fn.apply(target,[1,2])</li>
+<li>bind:fn.bind(target)(1,2)</li>
+</ul>
+<p>这三种方式在前几篇博客有详情</p>
+<h4 id="15-ES6-ES7"><a href="#15-ES6-ES7" class="headerlink" title="15.ES6/ES7"></a>15.ES6/ES7</h4><ul>
+<li>声明:let/const: 块级作用域、不存在变量提升、暂时性死区、不允许重复声明,const: 声明常量，无法修改</li>
+<li>解构赋值</li>
+<li>class/extend: 类声明与继承</li>
+<li>Set/Map: 新的数据结构</li>
+<li>Promise 的使用与实现,await/async</li>
+</ul>
+<p>具体参考阮一峰的 es6 入门：<a href="http://es6.ruanyifeng.com/#README" target="_blank" rel="noopener">http://es6.ruanyifeng.com/#README</a></p>
+<h4 id="16-数组"><a href="#16-数组" class="headerlink" title="16.数组"></a>16.数组</h4><ul>
+<li>map: 遍历数组，返回回调返回值组成的新数组</li>
+<li>forEach: 无法 break，可以用 try/catch 中 thrownewError 来停止</li>
+<li>filter: 过滤</li>
+<li>sort(fn)/reverse: 排序与反转，改变原数组</li>
+<li>concat: 连接数组，不影响原数组， 浅拷贝<br>…….</li>
+</ul>
+<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><ul>
+<li>1xx: 接受，继续处理</li>
+<li>200: 成功，并返回数据</li>
+<li>201: 已创建</li>
+<li>202: 已接受</li>
+<li>203: 成为，但未授权</li>
+<li>204: 成功，无内容</li>
+<li>205: 成功，重置内容</li>
+<li>206: 成功，部分内容</li>
+<li>301: 永久移动，重定向</li>
+<li>302: 临时移动，可使用原有 URI</li>
+<li>304: 资源未修改，可使用缓存</li>
+<li>305: 需代理访问</li>
+<li>400: 请求语法错误</li>
+<li>401: 要求身份认证</li>
+<li>403: 拒绝请求</li>
+<li>404: 资源不存在</li>
+<li>500: 服务器错误</li>
+</ul>
+<h4 id="get-post"><a href="#get-post" class="headerlink" title="get / post"></a>get / post</h4><p>get: 缓存、请求长度受限、会被历史保存记录<br>post: 安全、大数据、更多编码类型</p>
+<h3 id="框架：Vue"><a href="#框架：Vue" class="headerlink" title="框架：Vue"></a>框架：Vue</h3><h4 id="1-nextTick"><a href="#1-nextTick" class="headerlink" title="1.nextTick"></a>1.nextTick</h4><p>在下次 dom 更新循环结束之后执行延迟回调，可用于获取更新后的 dom 状态</p>
+<h4 id="2-生命周期"><a href="#2-生命周期" class="headerlink" title="2. 生命周期"></a>2. 生命周期</h4><ul>
+<li>beforeCreate</li>
+<li>created</li>
+<li>beforeMount</li>
+<li>mounted</li>
+<li>beforeUpdate</li>
+<li>updated</li>
+<li>beforeDestroy</li>
+<li>destroyed</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/20/shop/" rel="next" title="2019年我绝对不会再买的东西">
+                <i class="fa fa-chevron-left"></i> 2019年我绝对不会再买的东西
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/05/copy/" rel="prev" title="复制粘贴功能">
+                复制粘贴功能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://www.mcljp.com/avatar.jpg" alt="李小朋">
+            
+              <p class="site-author-name" itemprop="name">李小朋</p>
+              <p class="site-description motion-element" itemprop="description">我永远喜欢新垣结衣</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS"><span class="nav-number">1.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-盒模型"><span class="nav-number">1.1.</span> <span class="nav-text">1.盒模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-层叠上下文"><span class="nav-number">1.2.</span> <span class="nav-text">2.层叠上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-居中布局"><span class="nav-number">1.3.</span> <span class="nav-text">3.居中布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-选择器优先级"><span class="nav-number">1.4.</span> <span class="nav-text">4.选择器优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-去除浮动影响，防止父级高度塌陷"><span class="nav-number">1.5.</span> <span class="nav-text">5.去除浮动影响，防止父级高度塌陷</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#javascript"><span class="nav-number">2.</span> <span class="nav-text">javascript</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-原型-构造函数-实例"><span class="nav-number">2.1.</span> <span class="nav-text">1.原型 / 构造函数 / 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-原型链"><span class="nav-number">2.2.</span> <span class="nav-text">2.原型链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-作用域"><span class="nav-number">2.3.</span> <span class="nav-text">3.作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-作用域链"><span class="nav-number">2.4.</span> <span class="nav-text">4.作用域链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-闭包"><span class="nav-number">2.5.</span> <span class="nav-text">5.闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-对象的拷贝"><span class="nav-number">2.6.</span> <span class="nav-text">6.对象的拷贝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-new-运算符的执行过程"><span class="nav-number">2.7.</span> <span class="nav-text">7.new 运算符的执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-代码的复用"><span class="nav-number">2.8.</span> <span class="nav-text">8.代码的复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-继承"><span class="nav-number">2.9.</span> <span class="nav-text">9.继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-类型转换"><span class="nav-number">2.10.</span> <span class="nav-text">10.类型转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-类型判断"><span class="nav-number">2.11.</span> <span class="nav-text">11.类型判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-模块化"><span class="nav-number">2.12.</span> <span class="nav-text">12.模块化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-防抖与节流"><span class="nav-number">2.13.</span> <span class="nav-text">13.防抖与节流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-this-指向"><span class="nav-number">2.14.</span> <span class="nav-text">14.this 指向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-ES6-ES7"><span class="nav-number">2.15.</span> <span class="nav-text">15.ES6/ES7</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-数组"><span class="nav-number">2.16.</span> <span class="nav-text">16.数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器"><span class="nav-number">3.</span> <span class="nav-text">浏览器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见状态码"><span class="nav-number">3.1.</span> <span class="nav-text">常见状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get-post"><span class="nav-number">3.2.</span> <span class="nav-text">get / post</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#框架：Vue"><span class="nav-number">4.</span> <span class="nav-text">框架：Vue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-nextTick"><span class="nav-number">4.1.</span> <span class="nav-text">1.nextTick</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-生命周期"><span class="nav-number">4.2.</span> <span class="nav-text">2. 生命周期</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李小朋</span>
+  <a href="http://www.beian.miit.gov.cn" style="border:none;text-decoration:none;display:block;text-align:center;margin-top:10px;">豫ICP备18001833号-1</a>
+
+  
+</div>
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '81da4623b11e5594e559',
+          clientSecret: 'aa15740be79a0092c288477cbc99bd12ecf7ece5',
+          repo: 'LiJiaPeng001.github.io',
+          owner: 'LiJiaPeng001',
+          admin: ['LiJiaPeng001'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
