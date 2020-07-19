@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[mysql]]></title>
+    <url>%2F2020%2F07%2F15%2Fmysql%2F</url>
+    <content type="text"><![CDATA[title: mysqldate: 2020-07-15 15:24:36tags: mysql 安装 mysql 1yum install mysql-server 查看版本 1mysql -V 运行 mysql 1service mysqld start 查看是否启动 1service mysqld status 获取初始密码 1grep &quot;password&quot; /var/log/mysqld.log 登陆 mysql 1mysql -uroot -p&apos;********&apos; 设置密码（“需要带数字，大写字母，小写字母，特殊符号”）如我设置密码为 Qc123456! 1SET PASSWORD = PASSWORD(&apos;你的新密码&apos;); 设置密码永不过期 1ALTER USER &apos;root&apos;@&apos;localhost&apos; PASSWORD EXPIRE NEVER; 刷新系统权限相关表 1flush privileges; 设置数据库用户在所有 ip 下以及在本地可访问,以下用 root 用户做演示 123grant all privileges on *.* to root@&quot;%&quot; identified by &quot;你的密码&quot;;grant all privileges on *.* to root@&quot;localhost&quot; identified by &quot;你的密码&quot;;flush privileges;]]></content>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[downLoad]]></title>
     <url>%2F2020%2F06%2F26%2FdownLoad%2F</url>
     <content type="text"><![CDATA[123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566class DownLoad &#123; constructor(type) &#123; this.arr = &#123;&#125; this.type = type this.arr[type] = 0 &#125; int() &#123; this.arr[this.type] += 1 this.total() &#125; total() &#123; let num = Object.entries(this.arr).reduce((all, [key, value]) =&gt; &#123; all += value return all &#125;, 0); console.log(&apos;总数量：&apos;, num) return num &#125;&#125;class DownLoadSmall &#123; constructor(res = &#123; isDown: false, url: &apos;./1.png&apos; &#125;) &#123; this.arr = res &#125; start(DownLoad) &#123; if (this.arr.isDown) return this.arr return new Promise((resolve) =&gt; &#123; setTimeout(() =&gt; &#123; this.arr.isDown = true DownLoad.int() resolve(this.arr) &#125;, 500) &#125;) &#125;&#125;class Image &#123; constructor(images) &#123; this.images = images &#125; startDown(DownLoad) &#123; return new Promise(async resolve =&gt; &#123; for (let i = 0; i &lt; this.images.length; i++) &#123; let data = new DownLoadSmall(this.images[i]) this.images[i] = await data.start(DownLoad, this.images[i]) &#125; console.log(this.images) resolve() &#125;) &#125;&#125;let images = [ &#123; isDown: false, url: &apos;./1.png&apos; &#125;, &#123; isDown: false, url: &apos;./2.png&apos; &#125;, &#123; isDown: false, url: &apos;./3.png&apos; &#125;, &#123; isDown: false, url: &apos;./4.png&apos; &#125;, &#123; isDown: false, url: &apos;./5.png&apos; &#125;, &#123; isDown: false, url: &apos;./6.png&apos; &#125;, &#123; isDown: false, url: &apos;./7.png&apos; &#125;,]async function startDownImage() &#123; let imgClass = new DownLoad(&apos;image&apos;) let img = new Image(images) await img.startDown(imgClass) await img.startDown(imgClass)&#125;startDownImage()]]></content>
