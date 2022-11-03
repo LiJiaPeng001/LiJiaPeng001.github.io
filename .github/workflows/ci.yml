@@ -19,7 +19,7 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          branch: master
+          branch: release
           folder: dist
           token: ${{ secrets.ACCESS_TOKEN }}
           repository-name: lijiapeng001/lijiapeng001.github.io # github page 仓库
