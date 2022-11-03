@@ -3,11 +3,11 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - master
 
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   lint:
@@ -20,51 +20,58 @@ jobs:
           node-version: 16.x
           cache: pnpm
 
-      - name: Install
-        run: pnpm install
+      - name: Build
+        run:  |
+          pnpm install
+          pnpm run build
+          
+       - name: Deploy 🚀
+         uses: JamesIves/github-pages-deploy-action@4.1.5 
+         with:
+          branch: master
+          folder: dist
+          token: ${{ secrets.ACCESS_TOKEN }}
+          repository-name: lijiapeng001/lijiapeng001.github.io # github page 仓库
 
-      - name: Lint
-        run: pnpm run lint
+  # typecheck:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: pnpm/action-setup@v2
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16.x
+  #         cache: pnpm
 
-  typecheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: pnpm
+  #     - name: Install
+  #       run: pnpm install
 
-      - name: Install
-        run: pnpm install
+  #     - name: Typecheck
+  #       run: pnpm run typecheck
 
-      - name: Typecheck
-        run: pnpm run typecheck
+  # test:
+  #   runs-on: ${{ matrix.os }}
 
-  test:
-    runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       node-version: [14.x, 16.x]
+  #       os: [ubuntu-latest]
+  #     fail-fast: false
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
-        os: [ubuntu-latest]
-      fail-fast: false
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: pnpm/action-setup@v2
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         registry-url: https://registry.npmjs.org/
+  #         cache: pnpm
 
-    steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-          cache: pnpm
+  #     - run: pnpm install
+  #     - run: pnpm run test:unit
 
-      - run: pnpm install
-      - run: pnpm run test:unit
-
-  test-e2e:
+  # test-e2e:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
