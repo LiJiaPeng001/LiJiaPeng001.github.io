@@ -1,103 +1,25 @@
-name: CI
-
+name: Vue project Build and Deploy
 on:
   push:
     branches:
-      - master
-
-  pull_request:
-    branches:
-      - master
-
+      - master # 当master分支有变更，则执行以下jobs操作
 jobs:
-  lint:
+  deploying_vue_project:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
+      - name: checkout
+        uses: actions/checkout@v2.3.1  
         with:
-          node-version: 16.x
-          cache: pnpm
-
-      - name: Build
-        run:  |
-          pnpm install
-          pnpm run build
-          
-       - name: Deploy 🚀
-         uses: JamesIves/github-pages-deploy-action@4.1.5 
-         with:
+          persist-credentials: false
+      - name: building
+        # 执行shell命令
+        run: |
+          npm install
+          npm run build
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
           branch: master
           folder: dist
           token: ${{ secrets.ACCESS_TOKEN }}
           repository-name: lijiapeng001/lijiapeng001.github.io # github page 仓库
-
-  # typecheck:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: pnpm/action-setup@v2
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16.x
-  #         cache: pnpm
-
-  #     - name: Install
-  #       run: pnpm install
-
-  #     - name: Typecheck
-  #       run: pnpm run typecheck
-
-  # test:
-  #   runs-on: ${{ matrix.os }}
-
-  #   strategy:
-  #     matrix:
-  #       node-version: [14.x, 16.x]
-  #       os: [ubuntu-latest]
-  #     fail-fast: false
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: pnpm/action-setup@v2
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #         registry-url: https://registry.npmjs.org/
-  #         cache: pnpm
-
-  #     - run: pnpm install
-  #     - run: pnpm run test:unit
-
-  # test-e2e:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache
-          key: cypress-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-
-      - uses: pnpm/action-setup@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-          cache: pnpm
-
-      - run: pnpm install
-
-      - name: Cypress PNPM Patch
-        run: cp pnpm-lock.yaml package-lock.json
-
-      - name: Cypress
-        uses: cypress-io/github-action@v4
-        with:
-          install-command: echo
-          build: pnpm run build
-          start: npx vite --port 3333
