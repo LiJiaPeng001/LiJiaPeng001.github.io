@@ -49,8 +49,6 @@
   "../../../../../@vite-plugin-vue-layouts/generated-layouts": [],
   "\u0000virtual:vue-component-preview": [],
   "src/App.vue?vue&type=script&setup=true&lang.ts": [],
-  "src/store/user.ts": [],
-  "src/pages/index.vue?vue&type=script&setup=true&lang.ts": [],
   "../../../../../@vite-plugin-pages/route-block": [],
   "src/pages/index.vue": [],
   "../../../../../@vite-plugin-pages/generated-pages?id=~pages": [],
@@ -59,36 +57,30 @@
   "../../../../../__uno.css": [],
   "src/main.ts": [],
   "index.html": [],
-  "assets/app.bc743002.js-unocss-hash.css": [],
+  "assets/app.36abb974.js-unocss-hash.css": [],
   "../../../../../@vite-plugin-pwa/virtual:pwa-register": [
-    "/assets/virtual_pwa-register.743219be.js"
+    "/assets/virtual_pwa-register.9bcd90a0.js"
   ],
   "src/layouts/404.vue?vue&type=script&setup=true&lang.ts": [
-    "/assets/404.f6c20a5d.js"
+    "/assets/404.66d89f63.js"
   ],
   "src/layouts/404.vue": [
-    "/assets/404.f6c20a5d.js"
+    "/assets/404.66d89f63.js"
   ],
   "src/layouts/home.vue": [
-    "/assets/home.d3e72bb8.js"
+    "/assets/home.bbdf531a.js"
   ],
   "src/pages/about.md": [
-    "/assets/about.849a3b6c.js"
+    "/assets/about.69111d13.js"
   ],
   "src/pages/README.md": [
-    "/assets/README.d15a1724.js"
+    "/assets/README.5d2bf267.js"
   ],
   "src/pages/[...all].vue?vue&type=script&setup=true&lang.ts": [
-    "/assets/_...all_.c3795d42.js"
+    "/assets/_...all_.b12092fb.js"
   ],
   "src/pages/[...all].vue": [
-    "/assets/_...all_.c3795d42.js"
-  ],
-  "src/pages/hi/[name].vue?vue&type=script&setup=true&lang.ts": [
-    "/assets/_name_.d0fa0404.js"
-  ],
-  "src/pages/hi/[name].vue": [
-    "/assets/_name_.d0fa0404.js"
+    "/assets/_...all_.b12092fb.js"
   ],
   "node_modules/.pnpm/workbox-window@6.5.4/node_modules/workbox-window/build/workbox-window.prod.es5.mjs": [
     "/assets/workbox-window.prod.es5.6954f450.js"
