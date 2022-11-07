@@ -5,6 +5,8 @@ lang: zh-ZN
 
 # Hello VitePress
 
+# [About](/about)
+
 | Tables        | Are           | Cool  |
 | ------------- |:-------------:| -----:|
 | col 3 is      | right-aligned | $1600 |
@@ -25,12 +27,26 @@ This is a warning
 This is a dangerous warning
 :::
 
+::: details 点我展开
 ```js
 export default {
   name: 'MyComponent',
   // ...
 }
 ```
+:::
+
+```js
+export default {
+  data () {
+    return {
+      msg: 'Focused!' // [!code focus]
+    }
+  }
+}
+```
+
+
 ```js{1,4,6-7}
 export default { // Highlighted
   data () {
