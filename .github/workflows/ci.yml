@@ -14,12 +14,11 @@ jobs:
 
       - name: nodeVersion
         uses: actions/setup-node@v3
-        uses: pnpm/action-setup@v2
         with:
           node-version: 16.x
 
       - name: Build
-        # 执行shell命令
+        uses: pnpm/action-setup@v2
         run: |
           pnpm i
           pnpm run build
