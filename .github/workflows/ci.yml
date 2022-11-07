@@ -16,9 +16,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      
+      - uses: pnpm/action-setup@v2
+        with:
+          cache: pnpm
 
       - name: Build
-        uses: pnpm/action-setup@v2
         run: |
           pnpm i
           pnpm run build
