@@ -1,9 +1,3 @@
-// import fs from 'fs'
-
-// fs.readFile("./theme/index.js","utf-8",(err,data)=>{
-//   console.log(err,'data')
-// })
-
 export default {
   title: '李小朋的博客',
   description: 'Just a blog',
@@ -13,22 +7,31 @@ export default {
   themeConfig: {
     sidebar: [
       {
-        text: '首页',
+        text: '关于',
         items: [
-          { text: 'info', link: '/info' },
-          { text: 'about', link: '/about' },
-          { text: 'teamPage', link: '/teamPage' },
-          { text: 'badge', link: '/badge' },
+          { text: 'about', link: '/about.md' },
         ]
-      }
+      },
+      // {
+      //   text: 'Html',
+      //   items: [
+      //     { text: 'index', link: '/html/index.md' },
+      //   ]
+      // },
+      {
+        text: 'CSS',
+        items: [
+          { text: 'overflow的visible和hidden', link: '/css/overflow.md' },
+        ]
+      },
     ],
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2022-present peng'
     },
-    carbonAds: {
-      code: 'your-carbon-code',
-      placement: 'your-carbon-placement'
+    editLink: {
+      pattern: 'https://github.com/LiJiaPeng001/LiJiaPeng001.github.io/tree/master/docs/:path',
+      text: '修改本页面'
     }
   }
 }
