@@ -6,7 +6,7 @@ hero:
   text: 李小朋的学习博客.
   tagline: Lorem ipsum...
   image:
-    src: /public/images/iu1.jpg
+    src: /images/iu1.jpg
     alt: 
   actions:
     - theme: brand
