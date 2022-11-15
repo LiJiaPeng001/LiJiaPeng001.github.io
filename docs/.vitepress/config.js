@@ -16,6 +16,7 @@ export default {
           { text: "什么是babel", link: "/babel/babel1.md" },
           { text: "babel编译流程", link: "/babel/babel2.md" },
           { text: "babel的AST", link: "/babel/babel3.md" },
+          { text: "babel的API", link: "/babel/babel4.md" },
         ],
       },
       {
