@@ -11,13 +11,8 @@ export default {
         items: [{ text: "about", link: "/about.md" }],
       },
       {
-        text: "Babel插件制作流程",
-        items: [
-          { text: "什么是babel", link: "/babel/babel1.md" },
-          { text: "babel编译流程", link: "/babel/babel2.md" },
-          { text: "babel的AST", link: "/babel/babel3.md" },
-          { text: "babel的API", link: "/babel/babel4.md" },
-        ],
+        text: "面试题总结",
+        items: [{ text: "BFC", link: "/interview/BFC.md" }],
       },
       {
         text: "CSS",
