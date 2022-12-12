@@ -1,6 +1,7 @@
 export default {
   title: "李小朋的博客",
   description: "Just a blog",
+  lang: "zh-ZN",
   markdown: {
     lineNumbers: true,
   },
@@ -9,6 +10,10 @@ export default {
       {
         text: "关于",
         items: [{ text: "about", link: "/about.md" }],
+      },
+      {
+        text: "奇思妙想",
+        items: [{ text: "好玩的API", link: "/idea/api.md" }],
       },
       {
         text: "面试题总结",
