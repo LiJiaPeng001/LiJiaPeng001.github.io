@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as s}from"./app.8c27569d.js";const l=JSON.parse('{"title":"CSS","description":"","frontmatter":{"layout":"doc","title":"CSS"},"headers":[],"relativePath":"interview/css.md"}'),a={name:"interview/css.md"};function r(c,o,n,i,p,_){return s(),t("div")}const m=e(a,[["render",r]]);export{l as __pageData,m as default};
