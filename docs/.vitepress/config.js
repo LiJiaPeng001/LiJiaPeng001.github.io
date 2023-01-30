@@ -16,8 +16,15 @@ export default {
         items: [{ text: "好玩的API", link: "/idea/api.md" }],
       },
       {
-        text: "面试题总结",
-        items: [{ text: "BFC", link: "/interview/BFC.md" }],
+        text: "一些基础",
+        items: [
+          { text: "http", link: "/interview/http.md" },
+          { text: "html", link: "/interview/html.md" },
+          { text: "css", link: "/interview/css.md" },
+          { text: "js", link: "/interview/js.md" },
+          { text: "vue", link: "/interview/vue.md" },
+          { text: "ts", link: "/interview/ts.md" },
+        ],
       },
       {
         text: "CSS",

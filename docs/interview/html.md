@@ -1,22 +1,20 @@
 ---
 layout: doc
-title: 什么是BFC
+title: HTML
 ---
 
-# 关于 BFC
-
-## BFC 是什么
+## BFC
 
 `BFC`是块级上下文，是一个独立的渲染区域，**让处于`BFC`内部的元素与外部的元素相互隔离，使内外元素的定位不会相互影响。**
 
-## 触发条件
+### 触发条件
 
 - `position: absolute`/`fixed`
 - `display: inline-block`/`table`/`flex`
 - `float` 设置除 `none` 以外的值（只要设置了浮动，当前元素就创建了 BFC）
 - `overflow: hidden`/`auto`/`scroll`
 
-## 特性和应用
+### 特性和应用
 
 - 阻止 `margin` 重叠: 同一个 `BFC` 下外边距（`margin`）会发生折叠
 
@@ -81,3 +79,5 @@ DDDD
   <div class="flex"></div>
 </div>
 ```
+
+##

@@ -4,15 +4,15 @@ layout: home
 hero:
   name: 李小朋
   text: 李小朋的学习博客.
-  tagline: Lorem ipsum...
+  # tagline:
   image:
     src: /images/iu1.jpg
-    alt: 
+    alt: IUIU
   actions:
     - theme: brand
-      text: Get Started
+      text: 开始
       link: /about
     - theme: alt
-      text: View on GitHub
+      text: GitHub
       link: https://github.com/LiJiaPeng001/LiJiaPeng001.github.io
 ---
