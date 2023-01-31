@@ -1,1 +1,0 @@
-import{_ as t,c as e,o as a}from"./app.8c27569d.js";const l=JSON.parse('{"title":"TS","description":"","frontmatter":{"layout":"doc","title":"TS"},"headers":[],"relativePath":"interview/ts.md"}'),r={name:"interview/ts.md"};function o(s,n,c,i,p,_){return a(),e("div")}const m=t(r,[["render",o]]);export{l as __pageData,m as default};
