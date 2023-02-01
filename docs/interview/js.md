@@ -95,3 +95,34 @@ console.log(my.getName());
 - 如果 obj 里有 NaN、Infinity 和-Infinity，则序列化的结果会变成 null
 - JSON.stringify()只能序列化对象的可枚举的自有属性，例如 如果 obj 中的对象是有构造函数生成的， 则使用 JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的 constructor；
 - 如果对象中存在循环引用的情况也无法正确实现深拷贝；
+
+## 数据类型检测的方式及缺点
+
+- `typeof` 只能检测出除 null 外的基本数据类型和引用数据类型中的 function
+- `instanceof` 能检测出引用类型不能检测出基本类型，且不能跨 iframe
+- `constructor` 基本能检测所有的类型（除了 null 和 undefined）constructor 易被修改
+- `Object.prototype.toString.call` 检测出所有的类型 IE6 下，undefined 和 null 均为 Object
+
+## 0.1+0.2 ! == 0.3
+
+二进制转十进制，es6 中提供`Number.EPSILON`来解决
+
+```js
+function numberepsilon(arg1,arg2){                  
+  return Math.abs(arg1 - arg2) < Number.EPSILON;        
+}        
+​
+console.log(numberepsilon(0.1 + 0.2, 0.3)); // true
+```
+
+## Promise 相关
+
+Promise 是异步编程的一种解决方案，它是一个对象，可以获取异步操作的消息，他的出现大大改善了异步编程的困境，避免了地狱回调，它比传统的解决方案回调函数和事件更合理和更强大。
+
+#### 静态方法
+
+- all 接受一个数组，所有的 promise 的状态都达到 resolved，all 方法的状态就会变成 resolved，如果有一个状态变成了 rejected，那么 all 方法的状态就会变成 rejected
+- race 跟 all 差不多，当最先执行完的事件执行完之后，就直接返回值。如果第一个 promise 对象状态变成 resolved，那自身的状态变成了 resolved；反之 reject
+- any 接受数组，数组内的任意一个 promise 变成了 resolved 状态，那么由该方法所返回 resolved,反之 reject
+
+#### 手写 MyPromise
