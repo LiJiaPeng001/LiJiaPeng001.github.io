@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vitepress": "1.0.0-alpha.27"
+    "vitepress": "1.0.0-alpha.45"
   },
   "pnpm": {
     "peerDependencyRules": {
