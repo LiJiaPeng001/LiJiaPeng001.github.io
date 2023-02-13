@@ -24,6 +24,8 @@ export default {
           { text: "js", link: "/interview/js.md" },
           { text: "vue", link: "/interview/vue.md" },
           { text: "ts", link: "/interview/ts.md" },
+          { text: "react", link: "/interview/react.md" },
+          { text: "webpack", link: "/interview/webpack.md" },
         ],
       },
       {
