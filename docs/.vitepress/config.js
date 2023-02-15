@@ -26,6 +26,7 @@ export default {
           { text: "ts", link: "/interview/ts.md" },
           { text: "react", link: "/interview/react.md" },
           { text: "webpack", link: "/interview/webpack.md" },
+          { text: "miniApp", link: "/interview/miniApp.md" },
         ],
       },
       {
