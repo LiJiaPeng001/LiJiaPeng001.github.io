@@ -5,6 +5,33 @@ title: Vue
 
 # VUE 相关基础
 
+## 路由钩子
+
+- 全局守卫 beforeEach afterEach
+- beforeEnter 只在进入路由时触发，不会在 params、query 或 hash 改变时触发
+- 组件路由 beforeRouteEnter beforeRouteUpdate beforeRouteLeave
+
+```js
+const UserDetails = {
+  template: `...`,
+  beforeRouteEnter(to, from) {
+    // 在渲染该组件的对应路由被验证前调用
+    // 不能获取组件实例 `this` ！
+    // 因为当守卫执行时，组件实例还没被创建！
+  },
+  beforeRouteUpdate(to, from) {
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 `/users/:id`，在 `/users/1` 和 `/users/2` 之间跳转的时候，
+    // 由于会渲染同样的 `UserDetails` 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 因为在这种情况发生的时候，组件已经挂载好了，导航守卫可以访问组件实例 `this`
+  },
+  beforeRouteLeave(to, from) {
+    // 在导航离开渲染该组件的对应路由时调用
+    // 与 `beforeRouteUpdate` 一样，它可以访问组件实例 `this`
+  },
+};
+```
+
 ## 路由模式 hash history
 
 `hash`模式是一种把前端路由的路径用井号 `#` 拼接在真实 `url` 后面的模式。当井号 `#` 后面的路径发生变化时，浏览器并不会重新发起请求，而是会触发 `onhashchange` 事件。
@@ -18,6 +45,7 @@ title: Vue
 - 通过 `pushState` 、 `replaceState` 来实现无刷新跳转的功能。
 - 使用 history 模式时，在对当前的页面进行刷新时，此时浏览器会重新发起请求。如果 `nginx` 没有匹配得到当前的 url ，就会出现 404 的页面。
 - `hash` 模式虽然改变了 `url` 但并不包括在 http 请求中不影响服务端
+- 通过 js 操作 window.history 来改变浏览器地址栏的路径并没有发送 http 请求，当页面刷新会请求 www.website.com/login,这个目录在服务器并不存在所以会返回404
 
 #### 两者比较
 
@@ -55,3 +83,60 @@ title: Vue
 - 是否调用 return：computed 中的函数必须要用 return 返回，watch 中的函数不是必须要用 return
 - computed 默认第一次加载的时候就开始监听；watch 默认第一次加载不做监听，如果需要第一次加载做监听，添加 immediate 属性，设置为 true（immediate:true）
 - 使用场景：computed----当一个属性受多个属性影响的时候，使用 computed-----用户名展示、列表展示、购物车商品结算。watch–当一条数据影响多条数据的时候，使用 watch-----搜索框
+
+## vue3 相关 API
+
+- toRef 创建一个对应的 ref。这样创建的 ref 与其源属性保持同步：改变源属性的值将更新 ref 的值
+
+```js
+const state = reactive({
+  foo: 1,
+  bar: 2,
+});
+
+const fooRef = toRef(state, "foo");
+
+// 更改该 ref 会更新源属性
+fooRef.value++;
+console.log(state.foo); // 2
+
+// 更改源属性也会更新该 ref
+state.foo++;
+console.log(fooRef.value); // 3
+```
+
+- toRefs 将一个响应式对象转换为一个普通对象，这个普通对象的每个属性都是指向源对象相应属性的 ref。每个单独的 ref 都是使用 toRef() 创建的。
+
+```js
+const state = reactive({
+  foo: 1,
+  bar: 2,
+});
+
+const stateAsRefs = toRefs(state);
+/*
+stateAsRefs 的类型：{
+  foo: Ref<number>,
+  bar: Ref<number>
+}
+*/
+
+// 这个 ref 和源属性已经“链接上了”
+state.foo++;
+console.log(stateAsRefs.foo.value); // 2
+
+stateAsRefs.foo.value++;
+console.log(state.foo); // 3
+```
+
+- shalowRef 和 ref() 不同，浅层 ref 的内部值将会原样存储和暴露，并且不会被深层递归地转为响应式。只有对 .value 的访问是响应式的。常常用于对大型数据结构的性能优化或是与外部的状态管理系统集成。
+
+```js
+const state = shallowRef({ count: 1 });
+
+// 不会触发更改
+state.value.count = 2;
+
+// 会触发更改
+state.value = { count: 2 };
+```
