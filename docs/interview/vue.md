@@ -5,6 +5,43 @@ title: Vue
 
 # VUE 相关基础
 
+## 编译器原理
+
+## vue2 与 vue3 区别
+
+- vue2 依赖 Object.defineProperty 实现，只能监听指定对象的指定属性的 getter 和 setter 行为，比如声明对象 person 增加了一个新的属性就会失去响应式，Vue 提供$set 来增加响应式
+- vue3 引入反射和代理的概念，反射是 Reflect 代理是指 Proxy，利用 Proxy 直接代理一个普通对象，这个过程在 vue3 中通过 reactive 这个方法进行实现
+- proxy 只能代理复杂数据类型，所以 vue 额外实现了 ref 方法处理简单数据类型，通过 set 和 get 标记了 value 函数以此来实现，所以 ref 只能使用.value 进行触发
+- 编译器原理 parse =》 transformer =〉 generate
+
+## Diff 算法
+
+> diff 算法本质是一个对比的方法，其核心在于：旧 Dom 组更新为新 Dom 组时，如何更新效率更高，想要触发 diff 必须时一组 dom 的变化
+
+### v-for key 属性的意义
+
+```js
+/**
+ * 根据 key || type 判断是否为相同类型节点
+ */
+export function isSameVNodeType(n1: VNode, n2: VNode): boolean {
+  return n1.type === n2.type && n1.key === n2.key;
+}
+```
+
+- isSameVNodeType 的作用是判断两个 vnode 是否是相同的
+- 判断的方式是利用 VNode 的 type 和 key 进行对比，如果两个 Vnode 的 type、key 相等，则两个 vnode 为相同的 vnode
+- type 是 Vnode 节点类型，比如 div、li、comment、Component 组件实例
+- key 就是 v-for 循环时绑定的 key，key 变化则判断两者是否相同
+
+### diff 执行五大步骤
+
+- from start 自前向后的对比
+- from end 自后向前的对比
+- 新节点多于旧节点 需要挂载
+- 旧节点多于新节点 需要卸载
+- 乱序
+
 ## 路由钩子
 
 - 全局守卫 beforeEach afterEach
