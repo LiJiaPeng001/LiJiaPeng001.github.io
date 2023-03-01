@@ -17,4 +17,31 @@ title: React
 
 在以上过程中，webpack 会在特定的时间点广播出特定的事件，plugin 监听相关事件后会执行特定的逻辑
 
-## Webpack 的热更新原理
+## Webpack plugin
+
+在 Webpack 官方推荐：使用 es6 class 去定义每一个 plugin，使用 new 实例化出一个构造函数后，可以再 constructor 获取到对应的传参。并且 apply 方法会在插件初始化时被调用一次，内部方法就是插件的功能，而 compiler.hooks 后可以选择插件在某一个生命周期时去执行，并且可以在 class 中声明多个这样的钩子函数。
+
+```js
+class HelloPlugin {
+	constructor(options) {
+		console.log(options);
+	}
+	apply(compiler) {
+		compiler.hooks.done.tap('HelloPlugin', () => {
+			console.log('HelloPlugin');
+		}
+	}
+}
+```
+
+## webpack loader
+
+loader 必须返回 undefined 让 Webpack 知道 loader 返回的结果在 this.callback 中，而不是在 return
+
+```js
+module.exports = function (source, sourceMaps) {
+  // 通过 this.callback 告诉 Webpack 返回的结果
+  this.callback(null, source.replace("world", ", I am Xiaolang"), sourceMaps);
+  return;
+};
+```
