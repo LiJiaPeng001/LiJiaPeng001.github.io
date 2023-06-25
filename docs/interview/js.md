@@ -84,6 +84,19 @@ for (var i = 0; i < 10; i++) {
 t = null; //对象如果已经不用了，那就立即设置为null；等待垃圾回收。
 ```
 
+## 高性能向下取整
+
+```js
+// 不推荐
+const num = parseFloat(1.2);
+const num = parseFloat('1.2');
+
+// 推荐
+const num = 1.2 >>> 0;
+const num = '1.2' >>> 0;
+
+```
+
 ## for of 以及能遍历到哪些数据
 
 for of 遍历的是值，允许遍历数组、string、Map、Set 集合等可迭代的数据结构
