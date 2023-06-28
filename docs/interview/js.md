@@ -263,3 +263,41 @@ Promise 是异步编程的一种解决方案，它是一个对象，可以获取
 - any 接受数组，数组内的任意一个 promise 变成了 resolved 状态，那么由该方法所返回 resolved,反之 reject
 
 #### 手写 MyPromise
+
+```js
+console.log("landing...")
+```
+
+## 判断是否为原生函数
+
+vue中是这么判断的
+```js
+const reIsNative = /native code/;
+
+const isObject = value => {
+  return value && ['object', 'function'].includes(typeof value);
+};
+
+const isNative = value => {
+  return isObject(value) && reIsNative.test(value.toString());
+};
+
+// 使用：
+isNative([].push); // true
+isNative(myFunction); // false
+
+```
+
+## 对象打印顺序
+
+```js
+const object = { a2: '', 2: '', 1: '', a1: '' };
+
+for (const key in object) {
+  console.log(key);
+}
+// 1、2、a2、a1
+```
+js 在对对象的 key 进行遍历的时候，会先判断 key 的类型，如果是 number 类型，则会放在前面，并且进行排序，如果是 string 类型，则放在后面，不进行排序（对 number 排序是为了方便内存寻址，string 不能进行四则运算，所以排序没有意义）。
+
+## 
