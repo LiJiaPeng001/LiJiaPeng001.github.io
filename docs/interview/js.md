@@ -5,6 +5,106 @@ title: JS
 
 # JS 相关基础
 
+高阶函数，fetch，数据类型，数据检测，this指向，eventloop，伪数组
+## 数据类型
+
+js分为两种数据类型，一种是基本数据类型，一种是复杂数据类型。两种类型的主要区别是它们的存储位置不同，基本数据类型数据保存在栈中，复杂数据类型保存在堆中
+- 栈是一种数据结构，遵循`先进后出`原则，基本数据类型的复制是按值传递，复制的是值本身
+- 堆也是一种数据结构，当一个变量被声明并赋予一个复杂数据类型值，变量实际保存的是对象在堆中的饮用（内存地址），而不是对象本身，复杂数据类型的复制是按引用传递
+
+### 基本数据类型有`Undefined`,`Null`,`Boolean`,`Number`,`String`,`Symbol`,`BigInt`
+- `undefined`表示未定义或未初始化的变量，`null`表示空对象的特殊值，表示对象为空对象指针，在使用typeof操作符检查，`undefined`会返回`undefined`，而`null`会返回字符串“`object`”，这由于历史原因造成。在比较相等性时，undefined和null都与自身以及彼此相等，但与其他值不想等，比如`null == undefined`为true，而`null === 0`为false 
+- `Symbol`用于创建独一无二的、不可变标识符，在内存中是唯一的可以用作对象属性的键值，因为不会被常规属性遍历比如`for in`和`Object.keys()`获取到，可以定义一些私有属性、自定义行为等,如若获取可使用Object.getOwnPropertySymbols
+```js
+const obj = {
+  [Symbol('222')]: '222',
+  [Symbol('333')]: '222',
+  name: "peng"
+}
+
+for (const key in obj) {
+  console.log(key) // name
+}    
+console.log(Object.getOwnPropertySymbols(obj)) // Symbol('222') & Symbol('333')
+```
+- `BigInt`是用来表示任意精度的整数，远超普通数字类型的范围
+
+### 复杂数据类型（引用数据类型）有Object，Array，Function，Map和Set
+
+## 数据类型检测的方式及缺点
+
+- `typeof` 只能检测出除null外的基本数据类型和引用数据类型中的function
+- `instanceof` 用于检测对象是否属于某个构造函数的实例，能检测出引用类型不能检测出基本类型
+- `Object.prototype.toString.call`通过调用对象的`toString`方法，可以获取其内部的原型类型字符串
+```js
+Object.prototype.toString.call("Hello"); // "[object String]"
+```
+
+## this指向
+
+`this`关键字表示当前正在执行代码所属的对象。`this`的指向是动态的，它的值取决于函数被调用的方式以及函数的上下文。
+- 全局作用域，在全局this指向全局对象`window`，在node环境中是`global`对象
+- 函数中：作为普通函数调用`this`指向全局对象，如果是以对象的方法调用，`this`指向该对象
+- 箭头函数：会捕获外层函数的this值，不会根据函数的调用方式改变
+```js
+const obj = {
+  name: "Alice",
+  greet: function() {
+    const innerFunc = () => {
+      console.log(this.name);
+    };
+    innerFunc();
+  }
+};
+
+obj.greet(); // 输出 "Alice"
+
+```
+- 构造函数：`this`指向新创建的对象实例
+- 在事件处理函数中，this 指向触发事件的 DOM 元素。
+
+### 改变this指向
+- bind：创建一个新的函数，该函数的this绑定到指定的毒喜庆，原函数不会被调用，而是返回一个新函数
+- call：立即调用函数，传递参数列表
+- apply：传递参数数组
+
+## 类数组如何遍历
+- es5可以使用`Array.prototype.foreach.call(arguments,a=>console.log(a))`
+- es6可使用`扩展运算符`，或者`Array.from`
+
+## 浅拷贝和深拷贝（针对于引用数据类型）
+
+### 浅拷贝
+- es6:Object.assign()、扩展运算法
+- es5:slice，concat，对象使用for in循环
+
+### 深拷贝
+
+递归的循环原始对象的所有层级属性或元素，遇到正则和日期可先转为字符串
+```js
+const regex = /pattern/g;
+
+const regexString = regex.source; // 获取正则表达式的模式部分
+const flags = regex.flags; // 获取正则表达式的标志部分
+
+const regexAsString = `/${regexString}/${flags}`;
+console.log(regexAsString); // 输出 "/pattern/g"
+
+const date = new Date("2013-12-23")
+console.log(date.valueOf)
+```
+JSON.stringify 的缺点
+
+- 如果 obj 里面有时间对象，则 JSON.stringify 后再 JSON.parse 的结果，时间将只是字符串的形式，而不是对象的形式
+- 如果 obj 里有 RegExp(正则表达式的缩写)、Error 对象，则序列化的结果将只得到空对象；
+- 如果 obj 里有函数，undefined，则序列化的结果会把函数或 undefined 丢失；
+- 如果 obj 里有 NaN、Infinity 和-Infinity，则序列化的结果会变成 null
+- JSON.stringify()只能序列化对象的可枚举的自有属性，例如 如果 obj 中的对象是有构造函数生成的， 则使用 JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的 constructor；
+- 如果对象中存在循环引用的情况也无法正确实现深拷贝；
+
+## 缓存机制
+
+- localStorage数据再浏览器关闭后仍然保留，sessionStorage数据在会话结束时清楚（浏览器关闭或标签关闭），相同域名下打开的多个标签页面是不可以使用sessionStorage通信的
 ## 前端安全机制
 
 ### XSS 攻击类型
@@ -223,22 +323,6 @@ console.log(my.getName());
 - JS 中任务的执行顺序优先级是：主栈全局任务(宏任务) > 宏任务中的微任务 > 下一个宏任务。，所以 `promise(微任务)` 的执行顺序优先级高于`setTimeout`定时器。
 - await 是一个让出线程的标志。await 后面的表达式会先执行一遍，将 await 下面的代码加入到 micro task 中这个微任务是 promise 队列中微任务，然后就会跳出整个 async 函数来继续执行后面的代码。
 - 每一个宏任务和宏任务的微任务执行完后都会对页面 UI 进行渲染。
-
-## JSON.stringify 的缺点
-
-- 如果 obj 里面有时间对象，则 JSON.stringify 后再 JSON.parse 的结果，时间将只是字符串的形式，而不是对象的形式
-- 如果 obj 里有 RegExp(正则表达式的缩写)、Error 对象，则序列化的结果将只得到空对象；
-- 如果 obj 里有函数，undefined，则序列化的结果会把函数或 undefined 丢失；
-- 如果 obj 里有 NaN、Infinity 和-Infinity，则序列化的结果会变成 null
-- JSON.stringify()只能序列化对象的可枚举的自有属性，例如 如果 obj 中的对象是有构造函数生成的， 则使用 JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的 constructor；
-- 如果对象中存在循环引用的情况也无法正确实现深拷贝；
-
-## 数据类型检测的方式及缺点
-
-- `typeof` 只能检测出除 null 外的基本数据类型和引用数据类型中的 function
-- `instanceof` 能检测出引用类型不能检测出基本类型，且不能跨 iframe
-- `constructor` 基本能检测所有的类型（除了 null 和 undefined）constructor 易被修改
-- `Object.prototype.toString.call` 检测出所有的类型 IE6 下，undefined 和 null 均为 Object
 
 ## 0.1+0.2 ! == 0.3
 
