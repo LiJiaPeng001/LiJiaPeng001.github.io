@@ -5,7 +5,7 @@ title: JS
 
 # JS 相关基础
 
-高阶函数，fetch，数据类型，数据检测，this指向，eventloop，伪数组
+高阶函数
 ## 数据类型
 
 js分为两种数据类型，一种是基本数据类型，一种是复杂数据类型。两种类型的主要区别是它们的存储位置不同，基本数据类型数据保存在栈中，复杂数据类型保存在堆中
@@ -64,11 +64,29 @@ obj.greet(); // 输出 "Alice"
 - 在事件处理函数中，this 指向触发事件的 DOM 元素。
 
 ### 改变this指向
-- bind：创建一个新的函数，该函数的this绑定到指定的毒喜庆，原函数不会被调用，而是返回一个新函数
+- bind：创建一个新的函数，该函数的this绑定到指定的对象值，原函数不会被调用，而是返回一个新函数
 - call：立即调用函数，传递参数列表
 - apply：传递参数数组
 
 ## 类数组如何遍历
+类数组有`callee`和`length`属性，但是没有数组的forEach和reduce方法等
+> callee是一个指向当前正在执行的函数的引用，主要用于函数内部实现递归而不需要引用函数的名称，这在匿名函数中很有用
+
+```js
+function factorial(n) {
+  if (n <= 1) {
+    return 1;
+  } else {
+    // 使用 callee 调用自身
+    return n * arguments.callee(n - 1);
+  }
+}
+
+const result = factorial(5); // 计算 5 的阶乘
+console.log(result); // 输出 120
+
+```
+
 - es5可以使用`Array.prototype.foreach.call(arguments,a=>console.log(a))`
 - es6可使用`扩展运算符`，或者`Array.from`
 
@@ -105,6 +123,173 @@ JSON.stringify 的缺点
 ## 缓存机制
 
 - localStorage数据再浏览器关闭后仍然保留，sessionStorage数据在会话结束时清楚（浏览器关闭或标签关闭），相同域名下打开的多个标签页面是不可以使用sessionStorage通信的
+- 两个标签页如果想实现本地缓存共享可使用`window.postMessage`或者更复杂的`WebSocket`,`postMessage`通过`window.open`打开新窗口，或者在同一页面中使用`iframe`
+### storage和cookie不同处
+- 存储空间以chrome为例storage大概10mb配额，cookie可以存180个，每个4kb。
+- cookie可设置过期时间，storage需手动清除。
+- cookie每次http请求都会自动发送至服务器，本地缓存不会
+```js
+// 发送消息给目标窗口
+const targetWindow = window.open('https://www.example.com');
+const message = 'Hello from Sender!';
+
+// 发送消息
+targetWindow.postMessage(message, 'https://www.example.com');
+// 监听消息事件
+window.addEventListener('message', event => {
+  // 检查消息源
+  if (event.origin === 'https://www.example.com') {
+    // 处理接收到的消息
+    const receivedMessage = event.data;
+    console.log('Received message:', receivedMessage);
+  }
+});
+- 
+
+```
+## fetch
+```js
+// 发起 POST 请求
+fetch('https://api.example.com/submit', {
+  method: 'POST', // 请求方式
+  headers: {
+    'Content-Type': 'application/json'
+  }, // 请求头
+  body: JSON.stringify({ key: 'value' }) // 请求体
+})
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Fetch error:', error);
+  });
+ //fetch第一个then用于处理网络请求的响应，这个阶段获取响应状态码验证是否成功，第二个then用于解析数据
+```
+### 优势
+- Promise风格链式调用
+- 语法简介，更加语义化
+- 更强大和灵活的请求和响应对象
+## Event Loop
+
+EventLoop用于处理异步操作和事件驱动的变成，为了解决js单线程执行模型下的并发性和异步编程问题而设计
+
+### 宏队列和微队列
+
+宏队列
+
+- setTimeout
+- setInterval
+- setImmediate (Node 独有)
+- requestAnimationFrame (浏览器独有)
+- I/O
+- UI rendering (浏览器独有)
+
+微队列
+
+- process.nextTick (Node 独有)
+- Promise
+- Object.observe
+- MutationObserver
+
+### 执行流程
+
+- 主栈队列就是一个宏任务，每一个宏任务执行完就会执行宏任务中的微任务，直到微任务全部都执行完，才开始执行下一个宏任务。
+- JS 中任务的执行顺序优先级是：主栈全局任务(宏任务) > 宏任务中的微任务 > 下一个宏任务。，所以 `promise(微任务)` 的执行顺序优先级高于`setTimeout`定时器。
+- await 是一个让出线程的标志。await 后面的表达式会先执行一遍，将 await 下面的代码加入到 micro task 中这个微任务是 promise 队列中微任务，然后就会跳出整个 async 函数来继续执行后面的代码。
+- 每一个宏任务和宏任务的微任务执行完后都会对页面 UI 进行渲染。
+
+## 高阶函数
+
+高阶函数是指接受一个或多个函数作为参考，并返回一个函数的函数，例如map，filter，reduce
+```js
+const multi10 = function(x) { return x * 10; }
+const add100 = function(x) { return x + 100; }
+const compose = function(f,g) { 
+    return function(x) { 
+        return f(g(x))
+    }
+}
+
+console.log(compose(add100, multi10)(7))
+```
+### 柯里化 == 闭包 + 递归
+
+把接受多个参数的函数变换成接受一个单一参数（或部分）的函数，并且返回接受余下的参数和返回结果的新函数的技术
+- 缓存穿参
+```js
+function ajax(url, data, callback) {
+  // ...
+}
+function ajaxTest1(data, callback) {
+  ajax('http://www.test.com/test1', data, callback);
+}
+// 柯里化后
+let ajaxTest2 = partial(ajax,'http://www.test.com/test2')
+
+ajaxTest2(data,callback)
+function partial(fn, ...presetArgs) { // presetArgs 是需要先被绑定下来的参数
+  return function partiallyApplied(...laterArgs) { //  ...laterArgs 是后续参数
+        let allArgs =presetArgs.concat(laterArgs) // 收集到一起
+        return fn.apply(this, allArgs) // 传给回调函数 fn
+  }
+}
+```
+- 缓存判断
+```js
+const handleOption = ((param) =>{
+     console.log('从始至终只用执行一次 if...else...')
+     if(param === 'A'){
+         return ()=>console.log('A')
+     }else{
+         return ()=>console.log('others')
+     }
+})
+
+const tmp = handleOption('A')
+
+tmp()
+tmp()
+tmp()
+
+```
+- 缓存计算
+
+```js
+function cached(fn){
+  const cacheObj = Object.create(null); // 创建一个对象
+  return function cachedFn (str) { // 返回回调函数
+    if ( !cacheObj [str] ) { // 在对象里面查询，函数结果是否被计算过
+        let result = fn(str);
+        cacheObj [str] = result; // 没有则要执行原函数，并把计算结果缓存起来
+    }
+    return cacheObj [str] // 被缓存过，直接返回
+  }
+}
+
+const calculateFn = (num)=>{
+    console.log("计算即缓存")
+    const startTime = new Date()
+    for(let i=0;i<num;i++){} // 大数计算
+    const endTime = new Date()
+    console.log(endTime - startTime) // 耗时
+    return "Calculate big numbers"
+}
+
+let cashedCalculate = cached(calculateFn) 
+
+console.log(cashedCalculate(10_000_000_000)) // 计算即缓存 // 9944 // Calculate big numbers
+console.log(cashedCalculate(10_000_000_000)) // Calculate big numbers
+
+console.log(cashedCalculate(20_000_000_000)) // 计算即缓存 // 22126 // Calculate big numbers
+console.log(cashedCalculate(20_000_000_000)) // Calculate big numbers
+
+```
+
+高阶函数和柯里化的好处
+- 模块化，将复杂问题分解为简单的函数调用
+- 代码复用，可以将通用操作定义一次，并在多个地方重复使用
+代码示例：request,闭包，节流
 ## 前端安全机制
 
 ### XSS 攻击类型
@@ -297,32 +482,6 @@ let my = newOperator(Demo);
 console.log(my.getName());
 ```
 
-## Event Loop
-
-#### 宏队列和微队列
-
-宏队列
-
-- setTimeout
-- setInterval
-- setImmediate (Node 独有)
-- requestAnimationFrame (浏览器独有)
-- I/O
-- UI rendering (浏览器独有)
-
-微队列
-
-- process.nextTick (Node 独有)
-- Promise
-- Object.observe
-- MutationObserver
-
-#### 执行流程
-
-- 主栈队列就是一个宏任务，每一个宏任务执行完就会执行宏任务中的微任务，直到微任务全部都执行完，才开始执行下一个宏任务。
-- JS 中任务的执行顺序优先级是：主栈全局任务(宏任务) > 宏任务中的微任务 > 下一个宏任务。，所以 `promise(微任务)` 的执行顺序优先级高于`setTimeout`定时器。
-- await 是一个让出线程的标志。await 后面的表达式会先执行一遍，将 await 下面的代码加入到 micro task 中这个微任务是 promise 队列中微任务，然后就会跳出整个 async 函数来继续执行后面的代码。
-- 每一个宏任务和宏任务的微任务执行完后都会对页面 UI 进行渲染。
 
 ## 0.1+0.2 ! == 0.3
 
