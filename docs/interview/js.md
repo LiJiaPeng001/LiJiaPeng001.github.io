@@ -14,6 +14,7 @@ js分为两种数据类型，一种是基本数据类型，一种是复杂数据
 
 ### 基本数据类型有`Undefined`,`Null`,`Boolean`,`Number`,`String`,`Symbol`,`BigInt`
 - `undefined`表示未定义或未初始化的变量，`null`表示空对象的特殊值，表示对象为空对象指针，在使用typeof操作符检查，`undefined`会返回`undefined`，而`null`会返回字符串“`object`”，这由于历史原因造成。在比较相等性时，undefined和null都与自身以及彼此相等，但与其他值不想等，比如`null == undefined`为true，而`null === 0`为false 
+> 在js初始版本中，所有值都被表示为32位的二进制数，前三位用于表示类型标签，`000`用于表示对象，而`null`的二进制表示刚好是`000`，与对象标签匹配。因为检测一个值为`null`时，会返回`object`
 - `Symbol`用于创建独一无二的、不可变标识符，在内存中是唯一的可以用作对象属性的键值，因为不会被常规属性遍历比如`for in`和`Object.keys()`获取到，可以定义一些私有属性、自定义行为等,如若获取可使用Object.getOwnPropertySymbols
 ```js
 const obj = {
