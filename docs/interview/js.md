@@ -10,7 +10,7 @@ title: JS
 
 js分为两种数据类型，一种是基本数据类型，一种是复杂数据类型。两种类型的主要区别是它们的存储位置不同，基本数据类型数据保存在栈中，复杂数据类型保存在堆中
 - 栈是一种数据结构，遵循`先进后出`原则，基本数据类型的复制是按值传递，复制的是值本身
-- 堆也是一种数据结构，当一个变量被声明并赋予一个复杂数据类型值，变量实际保存的是对象在堆中的饮用（内存地址），而不是对象本身，复杂数据类型的复制是按引用传递
+- 堆也是一种数据结构，当一个变量被声明并赋予一个复杂数据类型值，变量实际保存的是对象在堆中的引用（内存地址），而不是对象本身，复杂数据类型的复制是按引用传递
 
 ### 基本数据类型有`Undefined`,`Null`,`Boolean`,`Number`,`String`,`Symbol`,`BigInt`
 - `undefined`表示未定义或未初始化的变量，`null`表示空对象的特殊值，表示对象为空对象指针，在使用typeof操作符检查，`undefined`会返回`undefined`，而`null`会返回字符串“`object`”，这由于历史原因造成。在比较相等性时，undefined和null都与自身以及彼此相等，但与其他值不想等，比如`null == undefined`为true，而`null === 0`为false 
@@ -199,7 +199,35 @@ EventLoop用于处理异步操作和事件驱动的变成，为了解决js单线
 - JS 中任务的执行顺序优先级是：主栈全局任务(宏任务) > 宏任务中的微任务 > 下一个宏任务。，所以 `promise(微任务)` 的执行顺序优先级高于`setTimeout`定时器。
 - await 是一个让出线程的标志。await 后面的表达式会先执行一遍，将 await 下面的代码加入到 micro task 中这个微任务是 promise 队列中微任务，然后就会跳出整个 async 函数来继续执行后面的代码。
 - 每一个宏任务和宏任务的微任务执行完后都会对页面 UI 进行渲染。
+### 事件监听
 
+事件监听用于捕获用户交互、浏览器操作以及其他事件，便于事件发生来执行响应的代码逻辑。事件监听分为三个阶段
+- `捕获阶段` 从根节点向目标元素传播
+- `目标阶段` 事件到达目标元素，触发目标元素的事件监听器
+- `冒泡阶段` 事件从目标元素向根元素传播
+可通过`addEventListener`的第三个参数来改变
+```js
+// 示例：捕获阶段
+element.addEventListener('click', () => {
+    console.log('捕获阶段事件监听器');
+}, true);
+
+// 示例：冒泡阶段
+element.addEventListener('click', () => {
+    console.log('冒泡阶段事件监听器');
+}, false);
+
+```
+### 作用域
+
+定义变量的区域，决定变量的可见性和访问范围
+- 全局作用域 可以在整个程序访问到
+- 局部作用域 函数内部定义变量用于局部作用域
+- 块级作用域 es6的let和const关键字，在块级作用域内定义的变量只能在该块内部访问
+```js
+console.log(x); // 抛出错误，x 在这里是暂时性死区
+let x = 10;
+```
 ## 高阶函数
 
 高阶函数是指接受一个或多个函数作为参考，并返回一个函数的函数，例如map，filter，reduce
@@ -291,28 +319,79 @@ console.log(cashedCalculate(20_000_000_000)) // Calculate big numbers
 - 模块化，将复杂问题分解为简单的函数调用
 - 代码复用，可以将通用操作定义一次，并在多个地方重复使用
 代码示例：request,闭包，节流
-## 前端安全机制
 
-### XSS 攻击类型
+## Class
 
-- 把 JS 代码放入到评论区保存在数据库，所有访问用户都会触发
-- 更改路由参数，进入页面会把 js 代码块放入 dom 内
+### 定义
+类是一种用于创建对象的模版。可使用类创建对象、定义属性和方法实现面向对象的编程
+### 继承
+- extends + super 
+### 修复符
+- static 静态方法
+- public 可访问，默认值
+- private 只能从类内部访问，js使用#name来代表私有属性，私有方法目前不支持
+- protected 只能从类的内部和子类中访问
+### 实现 new
 
-解决方法
+调用 new 的过程中会发生四件事情
 
-- 把不合法的东西都过滤掉或者编码，或者直接移除 script iframe 属性
-- 输入内容长度限制等等
+- 新生成一个对象
+- 链接到原型
+- 绑定 this
+- 返回新对象
 
-### 跨站点请求伪造 CSRF 攻击类型
+```js
+function Demo() {
+  this.name = "李家朋";
+  this.age = 11;
+}
 
-- get 一般使用 img 标签发起<img src="http://test.com/test?test=test">
-- post 通常是构造一个自动提交的表单在页面上，模拟用户完成了一次 POST 操作
-- 无法获取用户的登录凭证，只是冒充
+Demo.prototype.getName = function () {
+  return this.name;
+};
 
-防范手段
+/**
+ * 模拟实现 new 操作符
+ * @param  {Function} ctor [构造函数]
+ * @return {Object|Function|Regex|Date|Error}      [返回结果]
+ */
+function newOperator(ctor) {
+  if (typeof ctor !== "function") {
+    throw "newOperator function the first param must be a function";
+  }
+  // ES6 new.target 是指向构造函数
+  newOperator.target = ctor;
+  // 1.创建一个全新的对象，
+  // 2.并且执行[[Prototype]]链接
+  // 4.通过`new`创建的每个对象将最终被`[[Prototype]]`链接到这个函数的`prototype`对象上。
+  var newObj = Object.create(ctor.prototype);
+  // ES5 arguments转成数组 当然也可以用ES6 [...arguments], Aarry.from(arguments);
+  // 除去ctor构造函数的其余参数
+  var argsArr = [].slice.call(arguments, 1);
+  // 3.生成的新对象会绑定到函数调用的`this`。
+  // 获取到ctor函数返回结果
+  var ctorReturnResult = ctor.apply(newObj, argsArr);
+  // 小结4 中这些类型中合并起来只有Object和Function两种类型 typeof null 也是'object'所以要不等于null，排除null
+  var isObject =
+    typeof ctorReturnResult === "object" && ctorReturnResult !== null;
+  var isFunction = typeof ctorReturnResult === "function";
+  if (isObject || isFunction) {
+    return ctorReturnResult;
+  }
+  // 5.如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，那么`new`表达式中的函数调用会自动返回这个新的对象。
+  return newObj;
+}
+let my = newOperator(Demo);
 
-- 每次接口返回 token 客户端请求带上
+console.log(my.getName());
+```
 
+## ES6
+### weakMap || weakSet
+- 键值对，键如果没有引用会被垃圾回收
+- 键必须是对象，值是任意类型
+### 模块化导入和导出与 common.js的区别
+- 
 ## 垃圾回收机制
 
 Javascript 垃圾回收机制的原理也就是定期找出那些不再利用的内存（变量），然后释放其内存，实时开销较大，这个流程算法有两种方式
@@ -427,63 +506,6 @@ console.log(it.next().value); // 'ya'
 console.log(it.next().done); // true
 
 ```
-
-## 实现 new
-
-调用 new 的过程中会发生四件事情
-
-- 新生成一个对象
-- 链接到原型
-- 绑定 this
-- 返回新对象
-
-```js
-function Demo() {
-  this.name = "李家朋";
-  this.age = 11;
-}
-
-Demo.prototype.getName = function () {
-  return this.name;
-};
-
-/**
- * 模拟实现 new 操作符
- * @param  {Function} ctor [构造函数]
- * @return {Object|Function|Regex|Date|Error}      [返回结果]
- */
-function newOperator(ctor) {
-  if (typeof ctor !== "function") {
-    throw "newOperator function the first param must be a function";
-  }
-  // ES6 new.target 是指向构造函数
-  newOperator.target = ctor;
-  // 1.创建一个全新的对象，
-  // 2.并且执行[[Prototype]]链接
-  // 4.通过`new`创建的每个对象将最终被`[[Prototype]]`链接到这个函数的`prototype`对象上。
-  var newObj = Object.create(ctor.prototype);
-  // ES5 arguments转成数组 当然也可以用ES6 [...arguments], Aarry.from(arguments);
-  // 除去ctor构造函数的其余参数
-  var argsArr = [].slice.call(arguments, 1);
-  // 3.生成的新对象会绑定到函数调用的`this`。
-  // 获取到ctor函数返回结果
-  var ctorReturnResult = ctor.apply(newObj, argsArr);
-  // 小结4 中这些类型中合并起来只有Object和Function两种类型 typeof null 也是'object'所以要不等于null，排除null
-  var isObject =
-    typeof ctorReturnResult === "object" && ctorReturnResult !== null;
-  var isFunction = typeof ctorReturnResult === "function";
-  if (isObject || isFunction) {
-    return ctorReturnResult;
-  }
-  // 5.如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，那么`new`表达式中的函数调用会自动返回这个新的对象。
-  return newObj;
-}
-let my = newOperator(Demo);
-
-console.log(my.getName());
-```
-
-
 ## 0.1+0.2 ! == 0.3
 
 二进制转十进制，es6 中提供`Number.EPSILON`来解决
