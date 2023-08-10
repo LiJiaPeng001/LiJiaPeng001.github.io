@@ -1,0 +1,1 @@
+import{_ as t,c as e,o,a}from"./app.d00baf91.js";const f=JSON.parse('{"title":"","description":"","frontmatter":{"layout":"doc"},"headers":[],"relativePath":"about.md"}'),s={name:"about.md"},c=a("p",null,"Good Good Study Day Day Up!!!",-1),n=[c];function r(d,_,p,i,l,u){return o(),e("div",null,n)}const h=t(s,[["render",r]]);export{f as __pageData,h as default};
