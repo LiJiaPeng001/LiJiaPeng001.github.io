@@ -5,7 +5,6 @@ title: JS
 
 # JS 相关基础
 
-高阶函数
 ## 数据类型
 
 js分为两种数据类型，一种是基本数据类型，一种是复杂数据类型。两种类型的主要区别是它们的存储位置不同，基本数据类型数据保存在栈中，复杂数据类型保存在堆中
@@ -171,6 +170,9 @@ fetch('https://api.example.com/submit', {
 - Promise风格链式调用
 - 语法简介，更加语义化
 - 更强大和灵活的请求和响应对象
+### 缺点
+- fetch默认不会带cookie
+- Fetch 没有办法原生监测请求的进度，而 XHR 可以。
 ## Event Loop
 
 EventLoop用于处理异步操作和事件驱动的变成，为了解决js单线程执行模型下的并发性和异步编程问题而设计
@@ -320,6 +322,10 @@ console.log(cashedCalculate(20_000_000_000)) // Calculate big numbers
 - 代码复用，可以将通用操作定义一次，并在多个地方重复使用
 代码示例：request,闭包，节流
 
+## ES6
+### weakMap || weakSet
+- 键值对，键如果没有引用会被垃圾回收
+- 键必须是对象，值是任意类型
 ## Class
 
 ### 定义
@@ -385,13 +391,6 @@ let my = newOperator(Demo);
 
 console.log(my.getName());
 ```
-
-## ES6
-### weakMap || weakSet
-- 键值对，键如果没有引用会被垃圾回收
-- 键必须是对象，值是任意类型
-### 模块化导入和导出与 common.js的区别
-- 
 ## 垃圾回收机制
 
 Javascript 垃圾回收机制的原理也就是定期找出那些不再利用的内存（变量），然后释放其内存，实时开销较大，这个流程算法有两种方式

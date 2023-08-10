@@ -16,8 +16,9 @@ export default {
         items: [{ text: "好玩的API", link: "/idea/api.md" }],
       },
       {
-        text: "一些基础",
+        text: "前端基础",
         items: [
+          { text: "docker", link: "/interview/docker.md" },
           { text: "http", link: "/interview/http.md" },
           { text: "html", link: "/interview/html.md" },
           { text: "css", link: "/interview/css.md" },
