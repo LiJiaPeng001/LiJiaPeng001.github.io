@@ -13,12 +13,15 @@ docker rmi IMAGE_NAME # 删除本地的一个或多个镜像
 ## 容器操作命令
 
 ```bash
-docker rum -it IMAGE_NAME /bin/bash   # 在新容器中运行交互式shell
+docker run -it IMAGE_NAME /bin/bash   # 在新容器中运行交互式shell
 docker exec -it CONTAINER_ID /bin/bash  # 在运行中的容器中执行交互式shell
 docker ps # 列出正在运行的容器
 docker ps -a # 列出所有容器，包括停止的
 docker start CONTAINER_ID # 启动一个容器
 docker stop CONTAINER_ID # 停止运行容器
+docker stop $(docker ps -aq) # 停止所有运行的容器
+docker rm CONTAINER_ID # 删除一个容器
+docker rm $(docker ps -aq) # 删除所有容器
 docker restart CONTAINER_ID # 重启一个容器
 ```
 
