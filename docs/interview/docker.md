@@ -2,7 +2,7 @@
 layout: doc
 title: Docker
 ---
-
+# Docker
 ## 镜像操作
 ```bash
 docker search IMAGE_NAME # 查询Docker Hub的镜像
@@ -17,6 +17,7 @@ docker run -it IMAGE_NAME /bin/bash   # 在新容器中运行交互式shell
 docker exec -it CONTAINER_ID /bin/bash  # 在运行中的容器中执行交互式shell
 docker ps # 列出正在运行的容器
 docker ps -a # 列出所有容器，包括停止的
+docker ps -aq # 列出所有容器的容器id
 docker start CONTAINER_ID # 启动一个容器
 docker stop CONTAINER_ID # 停止运行容器
 docker stop $(docker ps -aq) # 停止所有运行的容器
@@ -37,5 +38,4 @@ docker logs --since="2023-08-01" CONTAINER_ID
 # --tail 10 显示最近10条日志  
 docker inspect CONTAINER_ID
 docker top CONTAINER_ID
-
 ```

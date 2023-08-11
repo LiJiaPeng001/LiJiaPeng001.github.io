@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: 李小朋
-  text: 李小朋的学习博客.
+  text: 面试题集合
   # tagline:
   image:
     src: /images/iu1.jpg
