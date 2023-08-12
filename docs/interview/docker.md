@@ -26,6 +26,16 @@ docker rm $(docker ps -aq) # 删除所有容器
 docker restart CONTAINER_ID # 重启一个容器
 ```
 
+## docker-compose(配置文件)
+```bash
+docker-compose up -d # 在后台运行
+docker-compose down # 停止并移除所有在配置文件中定义的服务
+docker-compose ps  # 查看当前正在运行的服务状态
+docker-compose logs # 查看服务日志
+docker-compose exec <service-name> <command> # 在正在运行的容器中执行命令
+docker-compose build # 构建配置文件中定义的所有服务镜像
+```
+
 ## 容器日志和状态
 
 ```bash
