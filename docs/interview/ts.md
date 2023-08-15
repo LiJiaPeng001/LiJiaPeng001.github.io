@@ -70,3 +70,24 @@ function crashFunc(): never {
 ```
 
 - void 其实可以理解为 null 和 undefined 的联合类型，它表示空值。
+
+## 常用内置方法
+
+- `Omit<T, K extends keyof T>` 从指定类型中排除某些属性
+```ts
+type Person = {
+  name: string;
+  age: number;
+  address: string;
+};
+type WithoutAgeAndAddress = Omit<Person, 'age' | 'address'>;
+```
+- `Partial<T>` 将`T`类型的所有属性都设为可选
+- `Required<T>` 将`T`类型的所有属性都设为必选
+- `Record<K, T>` 由`K`类型的属性名映射到`T`类型的属性值的对象
+- `Pick<T,K>` 选取`T`类型中的某些属性
+- `Exclude<T,U>` 从`T`类型中排除`U`类型的属性
+- `Extract<T,U>` 从`T`类型中提取`U`类型的属性
+```ts
+type OnlyNumber = Extract<number | string, number>;
+```
