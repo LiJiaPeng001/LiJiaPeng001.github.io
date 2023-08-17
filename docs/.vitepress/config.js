@@ -23,7 +23,7 @@ export default {
         ],
       },
       {
-        text: "CSS",
+        text: "一些问题",
         items: [
           { text: "overflow的visible和hidden", link: "/css/overflow.md" },
         ],
