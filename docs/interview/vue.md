@@ -34,14 +34,6 @@ export function isSameVNodeType(n1: VNode, n2: VNode): boolean {
 - type 是 Vnode 节点类型，比如 div、li、comment、Component 组件实例
 - key 就是 v-for 循环时绑定的 key，key 变化则判断两者是否相同
 
-### diff 执行五大步骤
-
-- from start 自前向后的对比
-- from end 自后向前的对比
-- 新节点多于旧节点 需要挂载
-- 旧节点多于新节点 需要卸载
-- 乱序
-
 ## 路由钩子
 
 - 全局守卫 beforeEach afterEach
@@ -178,4 +170,7 @@ state.value.count = 2;
 state.value = { count: 2 };
 ```
 
-##
+## vue中v-for和v-if的优先级
+
+- 在vue2中，v-for优先级高于v-if
+- vue3中，v-if优先级高于v-for
