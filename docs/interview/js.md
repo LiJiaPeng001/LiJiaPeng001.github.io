@@ -178,6 +178,8 @@ fetch('https://api.example.com/submit', {
 - Fetch 没有办法原生监测请求的进度，而 XHR 可以。
 ## Event Loop
 
+JS的运行环境是称之为宿主环境。JS语言不止运行在浏览器
+
 EventLoop用于处理异步操作和事件驱动的变成，为了解决js单线程执行模型下的并发性和异步编程问题而设计
 
 ### 宏队列和微队列
@@ -568,4 +570,40 @@ for (const key in object) {
 ```
 js 在对对象的 key 进行遍历的时候，会先判断 key 的类型，如果是 number 类型，则会放在前面，并且进行排序，如果是 string 类型，则放在后面，不进行排序（对 number 排序是为了方便内存寻址，string 不能进行四则运算，所以排序没有意义）。
 
-## 
+## webWorker
+
+赋予js操作多线程的能力
+- 不存在`window`,`parent`,`document`对象
+- `location`,`navigator`对象可以可读方式访问
+- worker线程上下文也有顶层对象`self`
+
+```js
+// main.js
+// 在主线程中创建 Web Worker 实例
+const worker = new Worker('worker.js');
+
+// 监听来自 Worker 的消息
+worker.onmessage = function (event) {
+  const message = event.data;
+  // 处理消息
+  console.log("message:",message)
+};
+
+// 监听 Worker 的错误信息
+worker.onerror = function (error) {
+  console.error('Worker error:', error);
+};
+// worker.js
+// self代表子线程自身，即子线程的全局对象，使用onmessage方法监控主程序的消息
+self.onmessage = function (event) {
+  // 获取主应用发送的消息
+  var message = event.data;
+  
+  // 处理接收到的消息
+  console.log('Received message:', message);
+
+  // 发送消息给主线程
+  self.postMessage('Message from Worker');
+};
+```
+
