@@ -24,7 +24,6 @@ jobs:
     - name: Build Vitepress
       run: |
           rm -rf node_modules
-          rm pnpm-lock.yaml
           rm npm-lock.yaml
           npm i
           npm run build
