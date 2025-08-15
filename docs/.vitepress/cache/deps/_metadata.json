@@ -1,23 +1,23 @@
 {
-  "hash": "b4b68217",
-  "browserHash": "6294a7ca",
+  "hash": "b0a1caa3",
+  "browserHash": "3df2524f",
   "optimized": {
     "vue": {
-      "src": "../../../../node_modules/.pnpm/vue@3.2.47/node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "eb0019a8",
+      "fileHash": "e230d793",
       "needsInterop": false
     },
     "echarts": {
-      "src": "../../../../node_modules/.pnpm/echarts@6.0.0/node_modules/echarts/index.js",
+      "src": "../../../../node_modules/echarts/index.js",
       "file": "echarts.js",
-      "fileHash": "418a435d",
+      "fileHash": "2d125516",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-JC4IRQUL": {
-      "file": "chunk-JC4IRQUL.js"
+    "chunk-SSYGV25P": {
+      "file": "chunk-SSYGV25P.js"
     }
   }
 }
