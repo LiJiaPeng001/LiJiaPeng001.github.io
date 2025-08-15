@@ -72,6 +72,6 @@ onMounted(async () => {
 ### 小梅
 <div ref="chartElMei" style="height: 400px;"></div>
 
-### 老易
+### 大丽
 <div ref="chartElYi" style="height: 400px;"></div>
 <div ref="chartElPeng" style="height: 400px;"></div>
