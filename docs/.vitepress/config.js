@@ -8,6 +8,12 @@ export default {
   themeConfig: {
     sidebar: [
       {
+        text: "减肥进度",
+        items: [
+          { text: "减肥进度", link: "/life/weight.md" },
+        ],
+      },
+      {
         text: "前端基础",
         items: [
           { text: "docker", link: "/interview/docker.md" },

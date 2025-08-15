@@ -36,6 +36,12 @@ docker-compose exec <service-name> <command> # 在正在运行的容器中执行
 docker-compose build # 构建配置文件中定义的所有服务镜像
 ```
 
+## docker-build
+```bash
+docker build -t container-name . # <镜像名称>是镜像指定的名称。句点（.）表示使用当前目录作为构建上下文。
+docker run -d -name=<容器名称> <镜像名称>
+```
+
 ## 容器日志和状态
 
 ```bash

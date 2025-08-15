@@ -20,5 +20,9 @@
         "@algolia/client-search"
       ]
     }
+  },
+  "dependencies": {
+    "echarts": "^6.0.0",
+    "vue-echarts": "^7.0.3"
   }
 }

@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: 李小朋
-  text: 面试题集合
+  text: 杂货铺铺铺
   # tagline:
   image:
     src: /images/iu1.jpg
