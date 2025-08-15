@@ -20,14 +20,14 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20  # 推荐使用 LTS 版本
-        cache: pnpm
 
     - name: Build Vitepress
       run: |
           rm -rf node_modules
           rm pnpm-lock.yaml
-          pnpm i
-          pnpm run build
+          rm npm-lock.yaml
+          npm i
+          npm run build
 
     - name: Deploy 
       uses: JamesIves/github-pages-deploy-action@4.1.5
