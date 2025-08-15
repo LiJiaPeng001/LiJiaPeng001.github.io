@@ -17,7 +17,9 @@ jobs:
           cache: pnpm
 
       - name: Build
-        run:
+        run: |
+          rm -rf node_modules
+          rm pnpm-lock.yaml
           pnpm i
           pnpm run build
 
