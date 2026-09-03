@@ -57,9 +57,9 @@ function goPanorama() {
   --fg: #fff;
   --muted: rgba(255, 255, 255, 0.62);
   --line: rgba(255, 255, 255, 0.22);
-  --font-brand: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Yuanti SC', 'STYuanti', 'YouYuan', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
-  --font-body: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+  --font-brand: 'Avenir Next', Avenir, 'Segoe UI', 'Trebuchet MS', sans-serif;
+  --font-display: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei', sans-serif;
+  --font-body: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 
   position: relative;
   height: 100dvh;

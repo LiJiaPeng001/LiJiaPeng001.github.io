@@ -2,7 +2,7 @@
 
 个人站仓库。放作品、记想法，偶尔做一点小小的实验。
 
-线上地址：[https://lijia-peng001.github.io/](https://lijia-peng001.github.io/)
+线上地址：[https://LiJiaPeng001.github.io/](https://LiJiaPeng001.github.io/)
 
 ## 技术栈
 

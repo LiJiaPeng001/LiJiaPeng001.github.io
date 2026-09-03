@@ -36,11 +36,11 @@
   display: inline-block;
   overflow: visible;
   padding: 0.04em 0.02em 0.1em;
-  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-  font-size: 1.25rem;
+  font-family: 'Avenir Next', Avenir, 'Segoe UI', 'Trebuchet MS', sans-serif;
+  font-size: 1.28rem;
   font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: 0.02em;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
