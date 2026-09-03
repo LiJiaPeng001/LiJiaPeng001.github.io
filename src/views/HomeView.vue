@@ -2,7 +2,7 @@
 const router = useRouter()
 
 const marqueeText = Array.from({ length: 14 }, () => 'peeeng').join(' · ')
-const rows = Array.from({ length: 9 }, (_, index) => ({
+const rows = Array.from({ length: 12 }, (_, index) => ({
   id: index,
   reverse: index % 2 === 1,
   duration: `${26 + (index % 5) * 3}s`,
@@ -59,8 +59,13 @@ function goPanorama() {
 .home {
   --bg: #000;
   --fg: #fff;
-  --muted: rgba(255, 255, 255, 0.58);
+  --muted: rgba(255, 255, 255, 0.62);
   --line: rgba(255, 255, 255, 0.22);
+  --font-brand:
+    ui-rounded, 'Hiragino Maru Gothic ProN', 'Yuanti SC', 'STYuanti', 'YouYuan', system-ui,
+    -apple-system, sans-serif;
+  --font-display: 'Yuanti SC', 'STYuanti', 'YouYuan', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  --font-body: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
 
   position: relative;
   height: 100dvh;
@@ -68,7 +73,7 @@ function goPanorama() {
   overflow: hidden;
   color: var(--fg);
   background: var(--bg);
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  font-family: var(--font-body);
 }
 
 .home__fx {
@@ -84,7 +89,7 @@ function goPanorama() {
   top: 50%;
   left: 50%;
   width: 140%;
-  height: 80%;
+  height: 112%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -92,9 +97,10 @@ function goPanorama() {
   padding: 0.2em 0;
   box-sizing: border-box;
   color: rgba(255, 255, 255, 0.22);
+  font-family: var(--font-brand);
   font-size: clamp(2.4rem, 6.2vw, 4.8rem);
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   line-height: 1.2;
   text-transform: lowercase;
   user-select: none;
@@ -102,21 +108,21 @@ function goPanorama() {
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(0, 0, 0, 0.35) 14%,
-    rgba(0, 0, 0, 0.85) 36%,
+    rgba(0, 0, 0, 0.35) 8%,
+    rgba(0, 0, 0, 0.85) 28%,
     #000 50%,
-    rgba(0, 0, 0, 0.85) 64%,
-    rgba(0, 0, 0, 0.35) 86%,
+    rgba(0, 0, 0, 0.85) 72%,
+    rgba(0, 0, 0, 0.35) 92%,
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(0, 0, 0, 0.35) 14%,
-    rgba(0, 0, 0, 0.85) 36%,
+    rgba(0, 0, 0, 0.35) 8%,
+    rgba(0, 0, 0, 0.85) 28%,
     #000 50%,
-    rgba(0, 0, 0, 0.85) 64%,
-    rgba(0, 0, 0, 0.35) 86%,
+    rgba(0, 0, 0, 0.85) 72%,
+    rgba(0, 0, 0, 0.35) 92%,
     transparent 100%
   );
 }
@@ -166,9 +172,10 @@ function goPanorama() {
 
 .home__brand {
   margin: 0;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-family: var(--font-brand);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   animation: home-fade 1s ease both;
 }
 
@@ -187,21 +194,23 @@ function goPanorama() {
 .home__title {
   margin: 0;
   max-width: 16em;
-  font-size: clamp(2.4rem, 6.5vw, 4.4rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6.8vw, 4.6rem);
   font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: 0.08em;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
   animation: home-fade-up 1s ease 0.08s both;
 }
 
 .home__desc {
   margin: 1.35rem 0 0;
   max-width: 26rem;
-  font-size: clamp(0.95rem, 2vw, 1.05rem);
-  font-weight: 300;
-  line-height: 1.8;
+  font-family: var(--font-body);
+  font-size: clamp(0.98rem, 2vw, 1.08rem);
+  font-weight: 400;
+  line-height: 1.85;
   color: var(--muted);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   animation: home-fade-up 1s ease 0.18s both;
 }
 
@@ -222,10 +231,10 @@ function goPanorama() {
   min-width: 9.5rem;
   padding: 0.78rem 1.35rem;
   border-radius: 999px;
-  font: inherit;
-  font-size: 0.92rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
+  font-family: var(--font-brand);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-decoration: none;
   cursor: pointer;
   transition:
