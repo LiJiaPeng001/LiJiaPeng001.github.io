@@ -30,7 +30,7 @@ const vueConfigs = pluginVue.configs['flat/essential'].map((config) => ({
 }))
 
 export default defineConfig([
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+  globalIgnores(['**/own/**', '**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
 
   {
     name: 'app/files-to-lint',
