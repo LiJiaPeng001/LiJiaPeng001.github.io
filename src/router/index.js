@@ -9,6 +9,11 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
+    {
+      path: '/360',
+      name: 'panorama',
+      component: () => import('@/views/panorama/PanoramaView.vue'),
+    },
   ],
 })
 

@@ -1,0 +1,300 @@
+.panorama-page {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: 'SF Pro Display', 'PingFang SC', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.panorama-page #canvas-wrap {
+  position: fixed;
+  inset: 0;
+}
+
+.panorama-page canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.panorama-page canvas:active {
+  cursor: grabbing;
+}
+
+.panorama-page .hint {
+  position: fixed;
+  left: 50%;
+  bottom: 36px;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.panorama-page .brand {
+  position: fixed;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  pointer-events: none;
+  z-index: 2;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.panorama-page .viewer-ui.visible {
+  opacity: 1;
+}
+
+.panorama-page .upload-btn {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 8px 24px rgba(0, 0, 0, 0.35);
+  transition:
+    opacity 0.4s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.panorama-page .upload-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panorama-page .upload-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.panorama-page .upload-btn:active {
+  transform: translateY(0);
+}
+
+.panorama-page .upload-btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.panorama-page .upload-btn input,
+.panorama-page .gate-btn input {
+  display: none;
+}
+
+.panorama-page .loading {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  z-index: 3;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.panorama-page .loading.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panorama-page .loading.soft {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.panorama-page .gate {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(40, 44, 52, 0.55), transparent 70%), #050505;
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+}
+
+.panorama-page .gate.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.panorama-page .gate-card {
+  width: min(100%, 360px);
+  padding: 36px 28px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  background: rgba(18, 18, 20, 0.72);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 24px 64px rgba(0, 0, 0, 0.55);
+  text-align: center;
+  animation: gate-in 0.45s ease both;
+}
+
+@keyframes gate-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.panorama-page .gate-title {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 15px;
+  font-weight: 560;
+  letter-spacing: 0.22em;
+}
+
+.panorama-page .gate-desc {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
+.panorama-page .gate-actions {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panorama-page .gate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.panorama-page .gate-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.panorama-page .gate-btn:active {
+  transform: translateY(0);
+}
+
+.panorama-page .gate-btn.primary {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: transparent;
+  color: #111;
+}
+
+.panorama-page .gate-btn.primary:hover {
+  background: #fff;
+  color: #000;
+}
+
+.panorama-page .gate-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* 安卓关闭毛玻璃，降低与 WebGL 叠加时的合成压力 */
+html.android .panorama-page .upload-btn,
+html.android .panorama-page .panorama-page .gate-card {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(18, 18, 20, 0.92);
+}
+
+@media (max-width: 640px) {
+  .panorama-page .upload-btn {
+    top: 16px;
+    right: 14px;
+    padding: 9px 13px;
+    font-size: 12px;
+  }
+
+  .panorama-page .upload-btn .label {
+    display: none;
+  }
+
+  .panorama-page .brand {
+    font-size: 12px;
+    top: 22px;
+  }
+
+  .panorama-page .gate-card {
+    padding: 30px 22px 22px;
+  }
+}

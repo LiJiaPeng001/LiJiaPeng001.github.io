@@ -13,6 +13,10 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "@peeeng/css": "^0.0.5",
+    "@peeeng/utils": "^0.0.14",
+    "naive-ui": "^2.45.3",
+    "three": "^0.170.0",
     "vue": "^3.5.40",
     "vue-router": "^4.6.4"
   },
@@ -28,6 +32,8 @@
     "npm-run-all2": "^9.0.2",
     "oxlint": "~1.73.0",
     "prettier": "3.9.5",
+    "unplugin-auto-import": "^21.1.0",
+    "unplugin-vue-components": "^32.1.0",
     "vite": "^8.1.5",
     "vite-plugin-vue-devtools": "^8.1.5",
     "vue-eslint-parser": "^10.4.1"
