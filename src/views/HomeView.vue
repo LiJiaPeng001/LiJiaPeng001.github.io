@@ -31,10 +31,6 @@ function goPanorama() {
       <div class="home__veil"></div>
     </div>
 
-    <header class="home__nav">
-      <p class="home__brand">peeeng</p>
-    </header>
-
     <div class="home__stage">
       <h1 class="home__title">这是我的个人站</h1>
       <p class="home__desc">放作品、记想法，偶尔做一点小小的实验。</p>
@@ -61,9 +57,7 @@ function goPanorama() {
   --fg: #fff;
   --muted: rgba(255, 255, 255, 0.62);
   --line: rgba(255, 255, 255, 0.22);
-  --font-brand:
-    ui-rounded, 'Hiragino Maru Gothic ProN', 'Yuanti SC', 'STYuanti', 'YouYuan', system-ui,
-    -apple-system, sans-serif;
+  --font-brand: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Yuanti SC', 'STYuanti', 'YouYuan', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
   --font-body: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
 
@@ -94,14 +88,14 @@ function goPanorama() {
   flex-direction: column;
   justify-content: space-evenly;
   gap: 0.08em;
-  padding: 0.2em 0;
+  padding: 0.35em 0;
   box-sizing: border-box;
   color: rgba(255, 255, 255, 0.22);
   font-family: var(--font-brand);
   font-size: clamp(2.4rem, 6.2vw, 4.8rem);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
   text-transform: lowercase;
   user-select: none;
   transform: translate(-50%, -50%) rotate(-6deg);
@@ -133,6 +127,8 @@ function goPanorama() {
   align-items: center;
   overflow: visible;
   white-space: nowrap;
+  line-height: 1.25;
+  padding: 0.06em 0;
 }
 
 .home__track {
@@ -157,26 +153,6 @@ function goPanorama() {
   background:
     radial-gradient(ellipse 62% 48% at 50% 48%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.72) 75%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 22%, transparent 78%, rgba(0, 0, 0, 0.55) 100%);
-}
-
-.home__nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  padding: 1.35rem clamp(1.25rem, 4vw, 3rem);
-}
-
-.home__brand {
-  margin: 0;
-  font-family: var(--font-brand);
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  animation: home-fade 1s ease both;
 }
 
 .home__stage {
@@ -299,7 +275,6 @@ function goPanorama() {
     animation: none;
   }
 
-  .home__brand,
   .home__title,
   .home__desc,
   .home__cta {
