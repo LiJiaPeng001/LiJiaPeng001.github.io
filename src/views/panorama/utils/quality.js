@@ -1,8 +1,7 @@
 /** 平台画质：安卓降负载，iOS / 桌面保持高画质 */
+import { isAndroid } from '@peeeng/utils/validate'
 
-const ua = navigator.userAgent || ''
-
-export const isAndroid = /Android/i.test(ua)
+export { isAndroid }
 
 export const QUALITY = isAndroid
   ? {

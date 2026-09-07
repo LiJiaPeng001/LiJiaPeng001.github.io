@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import { getBlobUrl } from '@peeeng/utils/upload'
+import { toLoadableImageUrl } from './litterbox.js'
 import {
   QUALITY,
   applyAndroidClass,
@@ -13,8 +15,6 @@ import {
   disposePanoramaMesh,
 } from './utils/index.js'
 
-const DEFAULT_PANO = 'https://hsimage.fotile.com/202608310959490473537.jpg'
-
 const IDLE_MS = 3000
 const AUTO_ROTATE_DEG_PER_SEC = 6
 const LAT_MIN = -35
@@ -23,19 +23,17 @@ const INERTIA_FRICTION = 0.92
 const INERTIA_STOP = 0.02
 
 /**
- * 在指定根节点挂载 360 全景查看器，返回销毁函数
+ * 在指定根节点挂载 360 全景查看器
  * @param {HTMLElement} root
+ * @param {{ initialImageUrl?: string }} [options]
  */
-export function createPanoramaViewer(root) {
+export function createPanoramaViewer(root, options = {}) {
   const wrap = root.querySelector('#canvas-wrap')
   const loadingEl = root.querySelector('#loading')
-  const uploadInput = root.querySelector('#pano-upload')
-  const gateUploadInput = root.querySelector('#gate-upload')
   const gateEl = root.querySelector('#gate')
-  const enterPreviewBtn = root.querySelector('#enter-preview')
   const brandEl = root.querySelector('#brand')
   const hintEl = root.querySelector('#hint')
-  const cornerUploadEl = root.querySelector('#corner-upload')
+  const viewerActionsEl = root.querySelector('#viewer-actions')
 
   applyAndroidClass()
 
@@ -69,6 +67,11 @@ export function createPanoramaViewer(root) {
   let rafId = 0
   let lastPinch = 0
   let disposed = false
+
+  /** @type {File | null} */
+  let currentFile = null
+  /** @type {string} */
+  let currentRemoteUrl = ''
 
   const loader = new THREE.TextureLoader()
   loader.setCrossOrigin('anonymous')
@@ -201,7 +204,7 @@ export function createPanoramaViewer(root) {
     gateEl.classList.add('hide')
     brandEl.classList.add('visible')
     hintEl.classList.add('visible')
-    cornerUploadEl.classList.add('visible')
+    viewerActionsEl?.classList.add('visible')
     viewerStarted = true
   }
 
@@ -250,41 +253,64 @@ export function createPanoramaViewer(root) {
     return new THREE.Texture(fitted)
   }
 
-  async function loadRemotePanorama(url) {
-    showLoading('加载全景中…', false)
-
-    try {
-      const img = await loadImageElement(url, { crossOrigin: 'anonymous' })
-      const texture = buildTextureFromSource(img)
-      clearPanorama()
-      applyTexture(texture)
-    } catch (err) {
-      console.error('全景图加载失败:', err)
-      loader.load(
-        url,
-        (texture) => {
-          clearPanorama()
-          applyTexture(texture)
-        },
-        undefined,
-        (loadErr) => {
-          console.error('全景图加载失败:', loadErr)
-          showError('全景图加载失败')
-        },
-      )
-    }
-  }
-
-  async function loadLocalPanorama(file) {
+  async function loadRemote(url) {
     showLoading(viewerStarted ? '切换全景中…' : '加载全景中…', viewerStarted)
 
-    const url = URL.createObjectURL(file)
+    currentFile = null
+    currentRemoteUrl = url
+
+    const candidates = [toLoadableImageUrl(url)]
+    if (candidates[0] !== url) candidates.push(url)
+
+    let lastError = null
+    for (const candidate of candidates) {
+      try {
+        const img = await loadImageElement(candidate, { crossOrigin: 'anonymous' })
+        const texture = buildTextureFromSource(img)
+        clearPanorama()
+        applyTexture(texture)
+        return
+      } catch (err) {
+        lastError = err
+        console.error('全景图加载失败:', candidate, err)
+      }
+    }
+
+    const fallbackUrl = candidates[0]
+    loader.load(
+      fallbackUrl,
+      (texture) => {
+        clearPanorama()
+        applyTexture(texture)
+      },
+      undefined,
+      (loadErr) => {
+        console.error('全景图加载失败:', lastError || loadErr)
+        showError('全景图加载失败')
+      },
+    )
+  }
+
+  async function loadLocal(file) {
+    if (!file) return
+
+    if (!isLikelyImage(file)) {
+      showLoading('请选择图片文件', true)
+      setTimeout(hideLoading, 1600)
+      return
+    }
+
+    showLoading(viewerStarted ? '切换全景中…' : '加载全景中…', viewerStarted)
+
+    const url = getBlobUrl(file)
 
     try {
       const img = await loadImageElement(url)
       const texture = buildTextureFromSource(img)
       clearPanorama()
       objectUrl = url
+      currentFile = file
+      currentRemoteUrl = ''
       applyTexture(texture)
     } catch (err) {
       console.error('本地全景加载失败:', err)
@@ -295,34 +321,19 @@ export function createPanoramaViewer(root) {
     }
   }
 
-  function handleUploadFile(file) {
-    if (!file) return
-
-    if (!isLikelyImage(file)) {
-      showLoading('请选择图片文件', true)
-      setTimeout(hideLoading, 1600)
-      return
+  function getShareSource() {
+    if (currentRemoteUrl) {
+      return { remoteUrl: currentRemoteUrl, file: null }
     }
-
-    enterViewer()
-    loadLocalPanorama(file)
+    if (currentFile) {
+      return { remoteUrl: '', file: currentFile }
+    }
+    return null
   }
 
-  function onUploadChange(e) {
-    const input = e.currentTarget
-    const file = input.files?.[0]
-    input.value = ''
-    handleUploadFile(file)
+  function setRemoteUrl(url) {
+    currentRemoteUrl = url || ''
   }
-
-  function onEnterPreview() {
-    enterViewer()
-    loadRemotePanorama(DEFAULT_PANO)
-  }
-
-  uploadInput.addEventListener('change', onUploadChange)
-  gateUploadInput.addEventListener('change', onUploadChange)
-  enterPreviewBtn.addEventListener('click', onEnterPreview)
 
   function animate(now = performance.now()) {
     if (disposed) return
@@ -367,26 +378,36 @@ export function createPanoramaViewer(root) {
   }
   window.addEventListener('resize', onResize)
 
-  return function dispose() {
-    disposed = true
-    cancelAnimationFrame(rafId)
+  const initialUrl = typeof options.initialImageUrl === 'string' ? options.initialImageUrl.trim() : ''
+  if (initialUrl) {
+    enterViewer()
+    loadRemote(initialUrl)
+  }
 
-    canvas.removeEventListener('pointerdown', onPointerDown)
-    canvas.removeEventListener('pointermove', onPointerMove)
-    canvas.removeEventListener('pointerup', onPointerUp)
-    canvas.removeEventListener('pointercancel', onPointerCancel)
-    canvas.removeEventListener('wheel', onWheel)
-    canvas.removeEventListener('touchmove', onTouchMove)
-    canvas.removeEventListener('touchend', onTouchEnd)
-    uploadInput.removeEventListener('change', onUploadChange)
-    gateUploadInput.removeEventListener('change', onUploadChange)
-    enterPreviewBtn.removeEventListener('click', onEnterPreview)
-    window.removeEventListener('resize', onResize)
+  return {
+    dispose() {
+      disposed = true
+      cancelAnimationFrame(rafId)
 
-    clearPanorama()
-    renderer.dispose()
-    if (renderer.domElement.parentNode) {
-      renderer.domElement.parentNode.removeChild(renderer.domElement)
-    }
+      canvas.removeEventListener('pointerdown', onPointerDown)
+      canvas.removeEventListener('pointermove', onPointerMove)
+      canvas.removeEventListener('pointerup', onPointerUp)
+      canvas.removeEventListener('pointercancel', onPointerCancel)
+      canvas.removeEventListener('wheel', onWheel)
+      canvas.removeEventListener('touchmove', onTouchMove)
+      canvas.removeEventListener('touchend', onTouchEnd)
+      window.removeEventListener('resize', onResize)
+
+      clearPanorama()
+      renderer.dispose()
+      if (renderer.domElement.parentNode) {
+        renderer.domElement.parentNode.removeChild(renderer.domElement)
+      }
+    },
+    enterViewer,
+    loadLocal,
+    loadRemote,
+    getShareSource,
+    setRemoteUrl,
   }
 }

@@ -62,11 +62,61 @@
   opacity: 1;
 }
 
-.panorama-page .upload-btn {
+.panorama-page .viewer-actions {
   position: fixed;
   top: 22px;
   right: 22px;
   z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.panorama-page .viewer-actions.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panorama-page .share-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  user-select: none;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.panorama-page .share-time select {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  outline: none;
+}
+
+.panorama-page .share-time select option {
+  color: #111;
+  background: #fff;
+}
+
+.panorama-page .action-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -82,26 +132,19 @@
   letter-spacing: 0.06em;
   cursor: pointer;
   user-select: none;
-  opacity: 0;
-  pointer-events: none;
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.06) inset,
     0 8px 24px rgba(0, 0, 0, 0.35);
   transition:
-    opacity 0.4s ease,
     background 0.25s ease,
     border-color 0.25s ease,
     color 0.25s ease,
     transform 0.25s ease,
-    box-shadow 0.25s ease;
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
 }
 
-.panorama-page .upload-btn.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.panorama-page .upload-btn:hover {
+.panorama-page .action-btn:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.32);
   color: #fff;
@@ -111,20 +154,20 @@
     0 12px 28px rgba(0, 0, 0, 0.4);
 }
 
-.panorama-page .upload-btn:active {
+.panorama-page .action-btn:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.panorama-page .upload-btn svg {
+.panorama-page .action-btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.panorama-page .action-btn svg {
   width: 15px;
   height: 15px;
   flex-shrink: 0;
   opacity: 0.9;
-}
-
-.panorama-page .upload-btn input,
-.panorama-page .gate-btn input {
-  display: none;
 }
 
 .panorama-page .loading {
@@ -270,22 +313,36 @@
 }
 
 /* 安卓关闭毛玻璃，降低与 WebGL 叠加时的合成压力 */
-html.android .panorama-page .upload-btn,
-html.android .panorama-page .panorama-page .gate-card {
+html.android .panorama-page .action-btn,
+html.android .panorama-page .share-time,
+html.android .panorama-page .gate-card {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   background: rgba(18, 18, 20, 0.92);
 }
 
 @media (max-width: 640px) {
-  .panorama-page .upload-btn {
+  .panorama-page .viewer-actions {
     top: 16px;
     right: 14px;
+    gap: 6px;
+  }
+
+  .panorama-page .share-time {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .panorama-page .share-time span {
+    display: none;
+  }
+
+  .panorama-page .action-btn {
     padding: 9px 13px;
     font-size: 12px;
   }
 
-  .panorama-page .upload-btn .label {
+  .panorama-page .action-btn .label {
     display: none;
   }
 
